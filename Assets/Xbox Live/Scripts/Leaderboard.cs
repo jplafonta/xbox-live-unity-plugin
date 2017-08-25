@@ -4,8 +4,10 @@
 using System;
 
 using Microsoft.Xbox.Services;
+#if !UNITY_XBOXONE
 using Microsoft.Xbox.Services.Leaderboard;
 using Microsoft.Xbox.Services.Statistics.Manager;
+#endif
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,7 +67,9 @@ public class Leaderboard : MonoBehaviour
 
     public float scrollSpeedMultiplier = 0.1f;
 
+#if !UNITY_XBOXONE
     private LeaderboardResult leaderboardData;
+#endif
     private ObjectPool entryObjectPool;
     private bool isLocalUserAdded;
 
@@ -188,7 +192,7 @@ public class Leaderboard : MonoBehaviour
         {
             this.XboxLiveUser = XboxLiveUserManager.Instance.GetSingleModeUser();
         }
-
+#if !UNITY_XBOXONE
         LeaderboardQuery query;
         if (newPage == this.currentPage + 1 && this.leaderboardData != null && this.leaderboardData.HasNext)
         {
@@ -224,9 +228,12 @@ public class Leaderboard : MonoBehaviour
                 newPage -= 1;
             }
         }
+#endif
 
         this.currentPage = newPage;
+#if !UNITY_XBOXONE
         XboxLive.Instance.StatsManager.GetLeaderboard(this.XboxLiveUser.User, query);
+#endif
     }
 
     private void LocalUserAdded(object sender, XboxLiveUserEventArgs e)
@@ -242,10 +249,13 @@ public class Leaderboard : MonoBehaviour
             return;
         }
 
+#if !UNITY_XBOXONE
         LeaderboardResultEventArgs leaderboardArgs = (LeaderboardResultEventArgs)e.EventData.EventArgs;
         this.LoadResult(leaderboardArgs.Result);
+#endif
     }
 
+#if !UNITY_XBOXONE
     /// <summary>
     /// Load the leaderboard result data from the service into the view.
     /// </summary>
@@ -292,6 +302,7 @@ public class Leaderboard : MonoBehaviour
         this.scrollRect.verticalNormalizedPosition = 1;
         this.UpdateButtons();
     }
+#endif
 
     public void UpdateButtons()
     {

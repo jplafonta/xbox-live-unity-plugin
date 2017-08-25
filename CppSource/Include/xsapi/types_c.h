@@ -64,7 +64,7 @@
   #endif
 #endif
 
-typedef int32 function_context;
+typedef int32_t function_context;
 #ifdef _WIN32
 typedef wchar_t CHAR_T;
 typedef LPCWSTR PCSTR_T;

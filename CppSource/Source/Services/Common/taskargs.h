@@ -23,6 +23,7 @@ struct xbl_args_tcui_check_gaming_privilege : public xbl_args<TCUICheckGamingPri
     string_t friendlyMessage;
 };
 
+#if !XDK_API
 struct xbl_args_xbox_live_user_sign_in : public xbl_args<SignInResult>
 {
     xbl_args_xbox_live_user_sign_in(
@@ -65,6 +66,7 @@ struct xbl_args_xbox_live_user_get_token_and_signature : public xbl_args<TokenAn
 
     string_t resultErrorMsg;
 };
+#endif
 
 struct xbl_args_xbox_live_user_refresh_token : public xbl_args<XboxLiveResult>
 {

@@ -17,7 +17,7 @@ typedef struct XboxLiveContext
     PCSTR_T xboxUserId;
 
 #if XDK_API | XBOX_UWP
-    Windows::Xbox::System::User^ user;
+    //Windows::Xbox::System::User^ user;
 #else
     XboxLiveUser *user;
 #endif
