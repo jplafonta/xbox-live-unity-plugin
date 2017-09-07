@@ -3,6 +3,8 @@
 #include "pch.h"
 #include "taskargs.h"
 
+#if !XDK_API
+
 xbl_args_xbox_live_user_sign_in::xbl_args_xbox_live_user_sign_in(
     _In_ XboxLiveUser* _user,
     _In_ Platform::Object^ _coreDispatcher,
@@ -28,3 +30,5 @@ xbl_args_xbox_live_user_get_token_and_signature::xbl_args_xbox_live_user_get_tok
     requestBodyString(_requestBodyString)
 {
 }
+
+#endif

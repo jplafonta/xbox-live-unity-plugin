@@ -8,7 +8,10 @@
 extern "C" {
 #endif
 
+#if !(XDK_API | XBOX_UWP)
 struct XboxLiveUser;
+#endif
+
 struct XboxLiveAppConfig;
 struct XboxLiveContextImpl;
 
@@ -17,7 +20,7 @@ typedef struct XboxLiveContext
     PCSTR_T xboxUserId;
 
 #if XDK_API | XBOX_UWP
-    //Windows::Xbox::System::User^ user;
+    Windows::Xbox::System::User^ user;
 #else
     XboxLiveUser *user;
 #endif
@@ -30,7 +33,14 @@ typedef struct XboxLiveContext
 
 } XboxLiveContext;
 
-#if !(XDK_API | XBOX_UWP)
+#if XDK_API | XBOX_UWP
+
+XSAPI_DLLEXPORT XboxLiveContext* XBL_CALLING_CONV
+XboxLiveContextCreate(
+    Windows::Xbox::System::User^ user
+    );
+
+#else
 
 XSAPI_DLLEXPORT XboxLiveContext* XBL_CALLING_CONV
 XboxLiveContextCreate(

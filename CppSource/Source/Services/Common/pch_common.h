@@ -43,6 +43,7 @@
 #include <vector>
 #include <codecvt>
 #include <iomanip>
+#include <algorithm>
 
 #if UWP_API
 #include <collection.h>
@@ -96,10 +97,13 @@ typedef int32_t function_context;
 #include "xsapi/xbox_live_context_c.h"
 #include "xsapi/xbox_live_app_config_c.h"
 #include "mem.h"
+#include "httpClient/types.h"
 #include "httpClient/httpClient.h"
-#include "log.h"
+#include "trace_internal.h"
 #include "taskargs.h"
 #include "utils.h"
 #include "task.h"
 #include "singleton.h"
 #include "xbl_singleton.h"
+
+HC_DECLARE_TRACE_AREA(HTTPCLIENT);

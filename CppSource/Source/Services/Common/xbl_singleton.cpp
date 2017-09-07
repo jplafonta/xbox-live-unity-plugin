@@ -52,7 +52,7 @@ void VerifyGlobalXsapiInit()
 {
     if (g_xblSingleton == nullptr)
     {
-        LOG_ERROR("Call HCGlobalInitialize() first");
+        HC_TRACE_ERROR(HTTPCLIENT, "Call HCGlobalInitialize() first");
         assert(g_xblSingleton != nullptr);
     }
 }

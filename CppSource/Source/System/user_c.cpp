@@ -72,7 +72,7 @@ void XboxLiveUserSignInExecute(
         }
     }
 
-    args->resultErrorMsg = to_utf16string(result.err_message());
+    args->resultErrorMsg = to_wstring(result.err_message());
     args->result.result.errorCode = result.err().value();
     args->result.result.errorMessage = args->resultErrorMsg.c_str();
     
@@ -176,7 +176,7 @@ void XboxLiveUserGetTokenAndSignatureExecute(
         args->requestBodyString == nullptr ? string_t() : nullptr
         ).get();
 
-    args->resultErrorMsg = to_utf16string(result.err_message());
+    args->resultErrorMsg = to_wstring(result.err_message());
     args->result.result.errorCode = result.err().value();
     args->result.result.errorMessage = args->resultErrorMsg.c_str();
 

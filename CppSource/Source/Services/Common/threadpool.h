@@ -12,7 +12,7 @@ public:
     void set_target_num_active_threads(long targetNumThreads);
     void shutdown_active_threads();
     long get_num_active_threads();
-    void set_thread_ideal_processor(_In_ int threadIndex, _In_ DWORD dwIdealProcessor);
+    void set_thread_ideal_processor(_In_ int threadIndex, _In_ PPROCESSOR_NUMBER lpIdealProcessor);
 
     HANDLE get_stop_handle();
     HANDLE get_ready_handle();
@@ -25,5 +25,5 @@ private:
 
     long m_numActiveThreads;
     HANDLE m_hActiveThreads[64];
-    DWORD m_defaultIdealProcessor;
+    PROCESSOR_NUMBER m_defaultIdealProcessor;
 };

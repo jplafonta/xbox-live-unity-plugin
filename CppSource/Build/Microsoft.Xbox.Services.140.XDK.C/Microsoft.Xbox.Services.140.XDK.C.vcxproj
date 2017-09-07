@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Durango">
+      <Configuration>Release</Configuration>
+      <Platform>Durango</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Durango">
+      <Configuration>Debug</Configuration>
+      <Platform>Durango</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\httpClient.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\trace.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\types.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\mem.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\singleton.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\task.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\utils.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\Win\utils_win.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\HTTP\httpcall.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\HTTP\Mock\http_mock.h" />
+    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\trace_internal.h" />
+    <ClInclude Include="..\..\Include\xsapi\errors_c.h" />
+    <ClInclude Include="..\..\Include\xsapi\services_c.h" />
+    <ClInclude Include="..\..\Include\xsapi\system_c.h" />
+    <ClInclude Include="..\..\Include\xsapi\types_c.h" />
+    <ClInclude Include="..\..\Include\xsapi\xbox_live_app_config_c.h" />
+    <ClInclude Include="..\..\Include\xsapi\xbox_live_context_c.h" />
+    <ClInclude Include="..\..\Source\Services\Common\pch.h" />
+    <ClInclude Include="..\..\Source\Services\Common\pch_common.h" />
+    <ClInclude Include="..\..\Source\Services\Common\taskargs.h" />
+    <ClInclude Include="..\..\Source\Services\Common\threadpool.h" />
+    <ClInclude Include="..\..\Source\Services\Common\xbl_singleton.h" />
+    <ClInclude Include="..\..\Source\Services\Common\xbox_live_app_config_impl.h" />
+    <ClInclude Include="..\..\Source\Services\Common\xbox_live_context_impl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\global_publics.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\mem.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\settings_publics.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\singleton.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\task.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\task_publics.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\utils.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\Win\utils_win.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\httpcall.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\httpcallrequest.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\httpcallresponse.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\Mock\http_mock.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\XDK\http_xdk.cpp" />
+    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\trace.cpp" />
+    <ClCompile Include="..\..\Source\Services\Common\pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Services\Common\taskargs.cpp" />
+    <ClCompile Include="..\..\Source\Services\Common\threadpool.cpp" />
+    <ClCompile Include="..\..\Source\Services\Common\xbl_singleton.cpp" />
+    <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_c.cpp" />
+    <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_impl.cpp" />
+    <ClCompile Include="..\..\Source\Shared\xbox_live_app_config_c.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <RootNamespace>Microsoft_Xbox_Services_140_XDK_C</RootNamespace>
+    <ProjectGuid>{e6590b4a-2634-4ba3-afb3-be38727caf2f}</ProjectGuid>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <Keyword>Win32Proj</Keyword>
+    <ApplicationEnvironment>title</ApplicationEnvironment>
+    <PlatformToolset>v140</PlatformToolset>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <TargetRuntime>Native</TargetRuntime>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Durango'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EmbedManifest>false</EmbedManifest>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Durango'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <EmbedManifest>false</EmbedManifest>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Durango'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\xbox-live-api\xsapi.staticlib.props" />
+    <Import Project="..\..\..\..\xbox-live-api\Build\Microsoft.Xbox.Services.140.XDK.Cpp\Build.Durango.Cpp.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Durango'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\xbox-live-api\xsapi.staticlib.props" />
+    <Import Project="..\..\..\..\xbox-live-api\Build\Microsoft.Xbox.Services.140.XDK.Cpp\Build.Durango.Cpp.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Durango'">
+    <ReferencePath>$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)</ReferencePath>
+    <LibraryPath>$(Console_SdkLibPath)</LibraryPath>
+    <LibraryWPath>$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)</LibraryWPath>
+    <IncludePath>$(Console_SdkIncludeRoot)</IncludePath>
+    <ExecutablePath>$(Console_SdkRoot)bin;$(VCInstallDir)bin\x86_amd64;$(VCInstallDir)bin;$(WindowsSDK_ExecutablePath_x86);$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(MSBuildToolsPath32);$(FxCopDir);$(PATH);</ExecutablePath>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Durango'">
+    <ReferencePath>$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)</ReferencePath>
+    <LibraryPath>$(Console_SdkLibPath)</LibraryPath>
+    <LibraryWPath>$(Console_SdkLibPath);$(Console_SdkWindowsMetadataPath)</LibraryWPath>
+    <IncludePath>$(Console_SdkIncludeRoot)</IncludePath>
+    <ExecutablePath>$(Console_SdkRoot)bin;$(VCInstallDir)bin\x86_amd64;$(VCInstallDir)bin;$(WindowsSDK_ExecutablePath_x86);$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(MSBuildToolsPath32);$(FxCopDir);$(PATH);</ExecutablePath>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\Binaries\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\Obj\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions Condition="'$(ConfigurationType)'=='StaticLibrary'">_NO_ASYNCRTIMP;_NO_PPLXIMP;_NO_XSAPIIMP;XSAPI_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(ConfigurationType)'=='DynamicLibrary'">HC_API_EXPORT;XBL_API_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories> 
+       $(ProjectDir);
+       $(ProjectDir)..\..\Source\Services\Common;
+       $(ProjectDir)..\..\Source\Services\Social;
+       $(ProjectDir)..\..\Source\Services\Multiplayer;
+       $(ProjectDir)..\..\Source\Services\Presence;
+       $(ProjectDir)..\..\Source\Services\Misc;
+       $(ProjectDir)..\..\Source\Services\Social\Manager;
+       $(ProjectDir)..\..\Source\Services\RealTimeActivity;
+       $(ProjectDir)..\..\Source\Shared;
+       $(ProjectDir)..\..\Source\Shared\WinRT;
+       $(ProjectDir)..\..\Include;
+       $(ProjectDir)..\..\Source\System\WinRT;
+       $(ProjectDir)..\..\Source\System;
+       $(ProjectDir)..\..\External\libHttpClient\Include;
+       $(ProjectDir)..\..\External\libHttpClient\Source;
+       $(ProjectDir)..\..\External\libHttpClient\Source\Common;
+       $(ProjectDir)..\..\External\libHttpClient\Source\Logger;
+       %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+      <CompileAsWinRT>true</CompileAsWinRT>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Durango'">
+    <Link>
+      <AdditionalDependencies>combase.lib;kernelx.lib;uuid.lib;etwplus.lib</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalUsingDirectories>$(Console_SdkPackagesRoot);$(Console_SdkWindowsMetadataPath);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>HC_XDK_API;NDEBUG;__WRL_NO_DEFAULT_LIB__;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level1</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Durango'">
+    <Link>
+      <AdditionalDependencies>combase.lib;kernelx.lib;uuid.lib;etwplus.lib</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <ClCompile>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalUsingDirectories>$(Console_SdkPackagesRoot);$(Console_SdkWindowsMetadataPath);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>HC_XDK_API;_DEBUG;__WRL_NO_DEFAULT_LIB__;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets" Condition="Exists('..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets'))" />
+  </Target>
+</Project>

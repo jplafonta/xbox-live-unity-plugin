@@ -14,7 +14,10 @@ struct xsapi_singleton
     std::unique_ptr<xbl_thread_pool> m_threadPool;
 
     std::mutex m_usersLock;
+
+#if !(XDK_API | XBOX_UWP)
     std::map<string_t, XboxLiveUser*> m_signedInUsers;
+#endif
 
     std::shared_ptr<XboxLiveAppConfig> m_appConfigSinglton;
     std::unique_ptr<XboxLiveAppConfigImpl> m_appConfigImplSinglton;

@@ -14,7 +14,7 @@ void TCUIShowProfileCardUIExecute(
     auto args = reinterpret_cast<xbl_args_tcui_show_profile_card_ui*>(executionRoutineContext);
     auto result = title_callable_ui::show_profile_card_ui(string_t(args->targetXboxUserId)).get();
 
-    args->resultErrorMsg = to_utf16string(result.err_message());
+    args->resultErrorMsg = to_wstring(result.err_message());
     args->result.errorCode = result.err().value();
     args->result.errorMessage = args->resultErrorMsg.c_str();
 
@@ -55,7 +55,7 @@ void TCUICheckGamingPrivilegeSilentlyExecute(
     auto args = reinterpret_cast<xbl_args_tcui_check_gaming_privilege*>(executionRoutineContext);
     auto result = title_callable_ui::check_gaming_privilege_silently((gaming_privilege)args->privilege);
 
-    args->resultErrorMsg = to_utf16string(result.err_message());
+    args->resultErrorMsg = to_wstring(result.err_message());
     args->result.result.errorCode = result.err().value();
     args->result.result.errorMessage = args->resultErrorMsg.c_str();
     args->result.hasPrivilege = result.payload();
@@ -102,7 +102,7 @@ void TCUICheckGamingPrivilegeWithUIExecute(
         string_t(args->friendlyMessage)
         ).get();
 
-    args->resultErrorMsg = to_utf16string(result.err_message());
+    args->resultErrorMsg = to_wstring(result.err_message());
     args->result.result.errorCode = result.err().value();
     args->result.result.errorMessage = args->resultErrorMsg.c_str();
     args->result.hasPrivilege = result.payload();

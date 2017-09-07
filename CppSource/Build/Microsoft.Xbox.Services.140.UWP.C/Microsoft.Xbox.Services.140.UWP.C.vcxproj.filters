@@ -19,9 +19,6 @@
     <Filter Include="libHttpClient\C++ Source\HTTP">
       <UniqueIdentifier>{3a809cc3-35fb-4501-9c8d-9ce320c40697}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libHttpClient\C++ Source\HTTP\UWP">
-      <UniqueIdentifier>{2bed7ce4-79cb-4771-b392-5e7c18f00f8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libHttpClient\C++ Source\HTTP\Mock">
       <UniqueIdentifier>{35c2c407-fbc7-49c6-96cf-6385cf15e4e4}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="libHttpClient\C++ Source\Common">
       <UniqueIdentifier>{35c98194-81ee-40b7-81aa-4514e3d2c8d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libHttpClient\C++ Source\Common\UWP">
-      <UniqueIdentifier>{f471cdd8-562e-457a-a6f0-244f3cdcee88}</UniqueIdentifier>
     </Filter>
     <Filter Include="C++ Source\System">
       <UniqueIdentifier>{ea2d9fb0-5988-4a56-9f0d-ce6039746f26}</UniqueIdentifier>
@@ -48,6 +42,12 @@
     </Filter>
     <Filter Include="C++ Source\Shared">
       <UniqueIdentifier>{994762ae-76e5-4e26-aedb-03cbf6741127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libHttpClient\C++ Source\HTTP\WinRTHttpClient">
+      <UniqueIdentifier>{15f3c661-a5ec-4ce0-b842-06b020dfb305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libHttpClient\C++ Source\Common\Win">
+      <UniqueIdentifier>{14c2df60-80a4-4689-80e3-68f9078cdbd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,23 +72,8 @@
     <ClInclude Include="..\..\Source\Services\Common\xbl_singleton.h">
       <Filter>C++ Source\Services\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\console_output.h">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\custom_output.h">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\debug_output.h">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\log.h">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\External\libHttpClient\Source\Common\mem.h">
       <Filter>libHttpClient\C++ Source\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\External\libHttpClient\Source\Common\UWP\utils_uwp.h">
-      <Filter>libHttpClient\C++ Source\Common\UWP</Filter>
     </ClInclude>
     <ClInclude Include="..\..\External\libHttpClient\Source\Common\utils.h">
       <Filter>libHttpClient\C++ Source\Common</Filter>
@@ -132,6 +117,18 @@
     <ClInclude Include="..\..\Source\System\user_impl_c.h">
       <Filter>C++ Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Services\Common\xbox_live_context_impl.h">
+      <Filter>C++ Source\Services\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\libHttpClient\Source\Logger\trace_internal.h">
+      <Filter>libHttpClient\C++ Source\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\libHttpClient\Source\Common\Win\utils_win.h">
+      <Filter>libHttpClient\C++ Source\Common\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\trace.h">
+      <Filter>libHttpClient\Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Services\Common\pch.cpp">
@@ -146,29 +143,8 @@
     <ClCompile Include="..\..\Source\Services\Common\xbl_singleton.cpp">
       <Filter>C++ Source\Services\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\console_output.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\custom_output.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\debug_output.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\log.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\log_entry.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\log_output.cpp">
-      <Filter>libHttpClient\C++ Source\Logger</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\External\libHttpClient\Source\Common\mem.cpp">
       <Filter>libHttpClient\C++ Source\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\Common\UWP\utils_uwp.cpp">
-      <Filter>libHttpClient\C++ Source\Common\UWP</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\libHttpClient\Source\Common\singleton.cpp">
       <Filter>libHttpClient\C++ Source\Common</Filter>
@@ -184,9 +160,6 @@
     </ClCompile>
     <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\httpcallresponse.cpp">
       <Filter>libHttpClient\C++ Source\HTTP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\UWP\http_uwp.cpp">
-      <Filter>libHttpClient\C++ Source\HTTP\UWP</Filter>
     </ClCompile>
     <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\Mock\http_mock.cpp">
       <Filter>libHttpClient\C++ Source\HTTP\Mock</Filter>
@@ -214,6 +187,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\System\user_c.cpp">
       <Filter>C++ Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_impl.cpp">
+      <Filter>C++ Source\Services\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\libHttpClient\Source\Logger\trace.cpp">
+      <Filter>libHttpClient\C++ Source\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\libHttpClient\Source\HTTP\WinRTHttpClient\http_winrthttpclient.cpp">
+      <Filter>libHttpClient\C++ Source\HTTP\WinRTHttpClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\libHttpClient\Source\Common\Win\utils_win.cpp">
+      <Filter>libHttpClient\C++ Source\Common\Win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
