@@ -43,6 +43,9 @@
     <Filter Include="libHttpClient\C++ Source\Common\Win">
       <UniqueIdentifier>{b01c5137-3da8-40ec-b02a-b17f553f482b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="C++ Source\System">
+      <UniqueIdentifier>{f4b6678b-10e8-4643-8b8e-683a76c776a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\httpClient.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="..\..\External\libHttpClient\Source\Logger\trace_internal.h">
       <Filter>libHttpClient\C++ Source\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\System\user_impl_xdk.h">
+      <Filter>C++ Source\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\External\libHttpClient\Source\Common\global_publics.cpp">
@@ -181,6 +187,12 @@
     </ClCompile>
     <ClCompile Include="..\..\External\libHttpClient\Source\Logger\trace.cpp">
       <Filter>libHttpClient\C++ Source\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\System\user_impl_xdk.cpp">
+      <Filter>C++ Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\System\user.cpp">
+      <Filter>C++ Source\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

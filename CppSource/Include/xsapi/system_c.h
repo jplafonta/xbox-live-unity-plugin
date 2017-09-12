@@ -9,10 +9,28 @@
 extern "C" {
 #endif
 
-#if !XDK_API
-
 struct XboxLiveUserImpl;
 
+typedef struct XboxLiveUser
+{
+    PCSTR_T xboxUserId;
+    PCSTR_T gamertag;
+    PCSTR_T ageGroup;
+    PCSTR_T privileges;
+    bool isSignedIn;
+
+#if XDK_API
+    Windows::Xbox::System::User^ xboxSystemUser;
+#endif
+#if UWP_API
+    PCSTR_T webAccountId;
+    Windows::System::User^ windowsSystemUser;
+#endif
+    
+    XboxLiveUserImpl *pImpl;
+} XboxLiveUser;
+
+#if !XDK_API
 typedef enum SIGN_IN_STATUS
 {
     /// <summary>
@@ -32,22 +50,6 @@ typedef enum SIGN_IN_STATUS
     /// </summary>
     USER_CANCEL
 } SIGN_IN_STATUS;
-
-typedef struct XboxLiveUser
-{
-    PCSTR_T xboxUserId; 
-    PCSTR_T gamertag;
-    PCSTR_T ageGroup;
-    PCSTR_T privileges;
-    bool isSignedIn;
-
-#if UWP_API
-    PCSTR_T webAccountId;
-    Windows::System::User^ windowsSystemUser;
-#endif
-    
-    XboxLiveUserImpl *pImpl;
-} XboxLiveUser;
 
 typedef struct SignInResultPayload
 {
@@ -79,23 +81,34 @@ typedef struct TokenAndSignatureResult
     TokenAndSignatureResultPayload payload;
 } TokenAndSignatureResult;
 
+#endif // !XDK_API
+
+#if XDK_API
+
+XSAPI_DLLEXPORT XboxLiveUser** XBL_CALLING_CONV
+XboxLiveUserCreateForXboxSystemUsers(
+    _Out_ size_t* pUserCount
+    );
+
+#else 
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreate();
 
 #if UWP_API
-
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreateFromSystemUser(
     _In_ Windows::System::User^ creationContext
     );
 
-#endif
+#endif // UWP_API
+#endif // XDK_API
 
 XSAPI_DLLEXPORT void XBL_CALLING_CONV
 XboxLiveUserDelete(
     _In_ XboxLiveUser *user
     );
 
+#if !XDK_API
 typedef void(*SignInCompletionRoutine)(
     _In_ SignInResult result,
     _In_opt_ void* context
@@ -117,8 +130,7 @@ XboxLiveUserSignInSilently(
     _In_ uint64_t taskGroupId
     );
 
-#if WINAPI_FAMILY && WINAPI_FAMILY==WINAPI_FAMILY_APP
-
+#if UWP_API
 XSAPI_DLLEXPORT void XBL_CALLING_CONV
 XboxLiveUserSignInWithCoreDispatcher(
     _Inout_ XboxLiveUser* user,
@@ -136,8 +148,7 @@ XboxLiveUserSignInSilentlyWithCoreDispatcher(
     _In_opt_ void* completionRoutineContext,
     _In_ uint64_t taskGroupId
     );
-
-#endif
+#endif // UWP_API
 
 typedef void(*GetTokenAndSignatureCompletionRoutine)(
     _In_ TokenAndSignatureResult result,
@@ -156,6 +167,23 @@ XboxLiveUserGetTokenAndSignature(
     _In_ uint64_t taskGroupId
     );
 
+#else // !XDK_API
+typedef void(*SignInCompletedHandler)(
+    _In_ XboxLiveUser* user
+    );
+
+XSAPI_DLLEXPORT function_context XBL_CALLING_CONV
+AddSignInCompletedHandler(
+    _In_ SignInCompletedHandler signInHandler
+    );
+
+XSAPI_DLLEXPORT void XBL_CALLING_CONV
+RemoveSignInCompletedHandler(
+    _In_ function_context context
+    );
+
+#endif // !XDK_API
+
 typedef void(*SignOutCompletedHandler)(
     _In_ XboxLiveUser* user
     );
@@ -169,8 +197,6 @@ XSAPI_DLLEXPORT void XBL_CALLING_CONV
 RemoveSignOutCompletedHandler(
     _In_ function_context context
     );
-
-#endif //!XDK_API
 
 #if defined(__cplusplus)
 } // end extern "C"

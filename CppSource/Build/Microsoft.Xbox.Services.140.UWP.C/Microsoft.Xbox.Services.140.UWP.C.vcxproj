@@ -170,7 +170,8 @@
     <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_impl.cpp" />
     <ClCompile Include="..\..\Source\Services\Misc\title_callable_ui_c.cpp" />
     <ClCompile Include="..\..\Source\Shared\xbox_live_app_config_c.cpp" />
-    <ClCompile Include="..\..\Source\System\user_c.cpp" />
+    <ClCompile Include="..\..\Source\System\user.cpp" />
+    <ClCompile Include="..\..\Source\System\user_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\External\libHttpClient\Include\httpClient\httpClient.h" />
@@ -198,7 +199,7 @@
     <ClInclude Include="..\..\Source\Services\Common\threadpool.h" />
     <ClInclude Include="..\..\Source\Services\Common\xbox_live_app_config_impl.h" />
     <ClInclude Include="..\..\Source\Services\Common\xbox_live_context_impl.h" />
-    <ClInclude Include="..\..\Source\System\user_impl_c.h" />
+    <ClInclude Include="..\..\Source\System\user_impl.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

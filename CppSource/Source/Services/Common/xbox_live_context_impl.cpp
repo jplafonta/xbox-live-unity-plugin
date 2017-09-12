@@ -3,7 +3,7 @@
 
 #include "pch.h"
 #if !(XDK_API | XBOX_UWP)
-#include "user_impl_c.h"
+#include "user_impl.h"
 #endif
 #include "xbox_live_context_impl.h"
 

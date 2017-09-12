@@ -86,9 +86,6 @@ typedef std::chrono::steady_clock chrono_clock_t;
 #define NAMESPACE_XBOX_HTTP_CLIENT_TEST_BEGIN                namespace xbox { namespace httpclienttest {
 #define NAMESPACE_XBOX_HTTP_CLIENT_TEST_END                  }}
 
-
-
-typedef int32_t function_context;
 #include "xsapi/types_c.h"
 #include "xsapi/services_c.h"
 #include "xsapi/errors_c.h"

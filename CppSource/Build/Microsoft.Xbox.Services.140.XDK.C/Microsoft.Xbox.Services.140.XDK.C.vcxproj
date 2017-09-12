@@ -35,6 +35,7 @@
     <ClInclude Include="..\..\Source\Services\Common\xbl_singleton.h" />
     <ClInclude Include="..\..\Source\Services\Common\xbox_live_app_config_impl.h" />
     <ClInclude Include="..\..\Source\Services\Common\xbox_live_context_impl.h" />
+    <ClInclude Include="..\..\Source\System\user_impl_xdk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\External\libHttpClient\Source\Common\global_publics.cpp" />
@@ -60,6 +61,8 @@
     <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_c.cpp" />
     <ClCompile Include="..\..\Source\Services\Common\xbox_live_context_impl.cpp" />
     <ClCompile Include="..\..\Source\Shared\xbox_live_app_config_c.cpp" />
+    <ClCompile Include="..\..\Source\System\user.cpp" />
+    <ClCompile Include="..\..\Source\System\user_impl_xdk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,12 +2,37 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "pch.h"
-#include "user_impl_c.h"
+#if XDK_API
+#include "user_impl_xdk.h"
+#else
+#include "user_impl.h"
+#endif
 
 using namespace xbox::services;
 using namespace xbox::services::system;
 using namespace xbox::httpclient;
 
+#if XDK_API
+XSAPI_DLLEXPORT XboxLiveUser** XBL_CALLING_CONV
+XboxLiveUserCreateForXboxSystemUsers(
+    _Out_ size_t* pUserCount
+    )
+{
+    if (pUserCount == nullptr)
+    {
+        return nullptr;
+    }
+    
+    VerifyGlobalXsapiInit();
+
+    auto vector = XboxLiveUserImpl::CreateUsersForXboxSystemUsers();
+    *pUserCount = vector.size();    
+
+    return vector.data();
+}
+
+#else
+#if UWP_API
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreateFromSystemUser(
     _In_ Windows::System::User^ creationContext
@@ -19,27 +44,31 @@ XboxLiveUserCreateFromSystemUser(
     cUser->pImpl = new XboxLiveUserImpl(creationContext, cUser);
     return cUser;
 }
+#endif // UWP_API
 
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreate()
 {
     return XboxLiveUserCreateFromSystemUser(nullptr);
 }
+#endif // XDK_API
 
 XSAPI_DLLEXPORT void XBL_CALLING_CONV
 XboxLiveUserDelete(
     _In_ XboxLiveUser *user
     )
 {
-    VerifyGlobalXsapiInit();
-
+#if !XDK_API
     auto singleton = get_xsapi_singleton();
     std::lock_guard<std::mutex> lock(singleton->m_usersLock);
     
     singleton->m_signedInUsers.erase(user->pImpl->m_xboxUserId);
+#endif
     delete user->pImpl;
     delete user;
 }
+
+#if !XDK_API
 
 void XboxLiveUserSignInExecute(
     _In_opt_ void* context,
@@ -100,8 +129,6 @@ void XboxLiveUserSignInHelper(
     _In_ uint64_t taskGroupId
     )
 {
-    VerifyGlobalXsapiInit();
-
     auto args = new xbl_args_xbox_live_user_sign_in(user, coreDispatcher, signInSilently);
 
     HC_TASK_HANDLE taskHandle = HCTaskCreate(
@@ -225,8 +252,6 @@ XboxLiveUserGetTokenAndSignature(
     _In_ uint64_t taskGroupId
     )
 {
-    VerifyGlobalXsapiInit();
-
     auto args = new xbl_args_xbox_live_user_get_token_and_signature(
         user,
         httpMethod,
@@ -246,6 +271,25 @@ XboxLiveUserGetTokenAndSignature(
         );
 }
 
+#else // !XDK_API
+
+XSAPI_DLLEXPORT function_context XBL_CALLING_CONV
+AddSignInCompletedHandler(
+    _In_ SignInCompletedHandler signInHandler
+    )
+{
+    return XboxLiveUserImpl::AddSignInCompletedHandler(signInHandler);
+}
+
+XSAPI_DLLEXPORT void XBL_CALLING_CONV
+RemoveSignInCompletedHandler(
+    _In_ function_context context
+    )
+{
+    XboxLiveUserImpl::RemoveSignInCompletedHandler(context);
+}
+#endif // !XDK_API
+
 XSAPI_DLLEXPORT function_context XBL_CALLING_CONV
 AddSignOutCompletedHandler(
     _In_ SignOutCompletedHandler signOutHandler
@@ -253,6 +297,10 @@ AddSignOutCompletedHandler(
 {
     VerifyGlobalXsapiInit();
 
+#if XDK_API
+    return XboxLiveUserImpl::AddSignOutCompletedHandler(signOutHandler);
+#else
+    // TODO move this into impl
     return xbox_live_user::add_sign_out_completed_handler(
         [signOutHandler](const xbox::services::system::sign_out_completed_event_args& args)
         {
@@ -266,6 +314,7 @@ AddSignOutCompletedHandler(
                 signOutHandler(iter->second);
             }
         });
+#endif
 }
 
 XSAPI_DLLEXPORT void XBL_CALLING_CONV
@@ -274,5 +323,9 @@ RemoveSignOutCompletedHandler(
     )
 {
     VerifyGlobalXsapiInit();
+#if XDK_API
+    XboxLiveUserImpl::RemoveSignOutCompletedHandler(context);
+#else
     xbox_live_user::remove_sign_out_completed_handler(context);
+#endif
 }
