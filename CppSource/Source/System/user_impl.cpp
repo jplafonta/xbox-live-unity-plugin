@@ -4,6 +4,8 @@
 #include "pch.h"
 #include "user_impl.h"
 
+using namespace xbox::services::system;
+
 XboxLiveUserImpl::XboxLiveUserImpl(
     _In_ Windows::System::User^ creationContext,
     _In_ XboxLiveUser *cUser
@@ -12,12 +14,38 @@ XboxLiveUserImpl::XboxLiveUserImpl(
 {
     if (creationContext != nullptr)
     {
-        m_cppUser = std::make_shared<xbox::services::system::xbox_live_user>(creationContext);
+        m_cppUser = std::make_shared<xbox_live_user>(creationContext);
     }
     else
     {
-        m_cppUser = std::make_shared<xbox::services::system::xbox_live_user>();
+        m_cppUser = std::make_shared<xbox_live_user>();
     }
+}
+
+function_context XboxLiveUserImpl::AddSignOutCompletedHandler(
+    _In_ SignOutCompletedHandler signOutHandler
+    )
+{
+    return xbox_live_user::add_sign_out_completed_handler(
+        [signOutHandler](const xbox::services::system::sign_out_completed_event_args& args)
+    {
+        auto singleton = get_xsapi_singleton();
+        std::lock_guard<std::mutex> lock(singleton->m_usersLock);
+
+        auto iter = singleton->m_signedInUsers.find(args.user()->xbox_user_id());
+        if (iter != singleton->m_signedInUsers.end())
+        {
+            iter->second->pImpl->Refresh();
+            signOutHandler(iter->second);
+        }
+    });
+}
+
+void XboxLiveUserImpl::RemoveSignOutCompletedHandler(
+    _In_ function_context context
+    )
+{
+    xbox_live_user::remove_sign_out_completed_handler(context);
 }
 
 void XboxLiveUserImpl::Refresh()

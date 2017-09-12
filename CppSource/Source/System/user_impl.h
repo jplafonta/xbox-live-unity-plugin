@@ -5,10 +5,14 @@
 
 struct XboxLiveUserImpl
 {
+public:
     XboxLiveUserImpl(
         _In_ Windows::System::User^ creationContext,
         _In_ XboxLiveUser *cUser
         );
+
+    static function_context AddSignOutCompletedHandler(_In_ SignOutCompletedHandler signOutHandler);
+    static void RemoveSignOutCompletedHandler(_In_ function_context context);
 
     void Refresh();
 

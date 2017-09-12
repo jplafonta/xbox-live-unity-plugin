@@ -20,18 +20,15 @@ private:
         _In_ XboxLiveUser *cUser
         );
 
-    //void Refresh();
-
-    // TODO might not need these
-    string_t m_xboxUserId;
-    string_t m_gamertag;
-    string_t m_ageGroup;
-    string_t m_privileges;
-    string_t m_webAccountId;
+    void Refresh();
 
     XboxLiveUser* m_cUser;
     Windows::Xbox::System::User^ m_xboxSystemUser;
 
-    static std::mutex m_mutex;
     static std::vector<XboxLiveUser*> m_users;
+    
+    static function_context m_contextIndexer;
+    static std::map<function_context, Windows::Foundation::EventRegistrationToken> m_eventRegistrationTokens;
+
+    static std::mutex m_mutex;
 };

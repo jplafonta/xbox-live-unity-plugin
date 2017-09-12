@@ -15,7 +15,7 @@ namespace Microsoft.Xbox.Services
     {
         private bool disposed;
         private static XboxLive instance;
-        private static IntPtr xsapiNativeDll;
+        private static IntPtr xsapiNativeDll = IntPtr.Zero;
         private XboxLiveSettings settings;
         private IStatsManager statsManager;
         private ISocialManager socialManager;

@@ -8,6 +8,9 @@ using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Xbox::System;
 
+function_context XboxLiveUserImpl::m_contextIndexer;
+std::map<function_context, EventRegistrationToken> XboxLiveUserImpl::m_eventRegistrationTokens;
+
 std::mutex XboxLiveUserImpl::m_mutex;
 std::vector<XboxLiveUser*> XboxLiveUserImpl::m_users;
 
@@ -18,7 +21,7 @@ XboxLiveUserImpl::XboxLiveUserImpl(
     : m_xboxSystemUser(xboxSystemUser),
     m_cUser(cUser)
 {
-    // TODO Refresh()
+    Refresh();
 }
 
 std::vector<XboxLiveUser*>& XboxLiveUserImpl::CreateUsersForXboxSystemUsers()
@@ -40,7 +43,6 @@ function_context XboxLiveUserImpl::AddSignInCompletedHandler(
     _In_ SignInCompletedHandler signInHandler
     )
 {
-    // TODO fix function context vs handler token value type mismatch
     function_context context = -1;
     if (signInHandler != nullptr)
     {
@@ -62,18 +64,26 @@ function_context XboxLiveUserImpl::AddSignInCompletedHandler(
                 signInHandler(*iter);
             }
         });
-        context = token.Value;
+
+        {
+            std::lock_guard<std::mutex> lock(m_mutex);
+            m_eventRegistrationTokens[++m_contextIndexer] = token;
+            context = m_contextIndexer;
+        }
     }
     return context;
 }
 
 void XboxLiveUserImpl::RemoveSignInCompletedHandler(
     _In_ function_context context
-    )
-{   
-    EventRegistrationToken token;
-    token.Value = context;
-    Windows::Xbox::System::User::SignInCompleted -= token;
+)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto iter = m_eventRegistrationTokens.find(context);
+    if (iter != m_eventRegistrationTokens.end())
+    {
+        Windows::Xbox::System::User::SignInCompleted -= iter->second;
+    }
 }
 
 function_context XboxLiveUserImpl::AddSignOutCompletedHandler(
@@ -101,7 +111,12 @@ function_context XboxLiveUserImpl::AddSignOutCompletedHandler(
                 signOutHandler(*iter);
             }
         });
-        context = token.Value;
+
+        {
+            std::lock_guard<std::mutex> lock(m_mutex);
+            m_eventRegistrationTokens[++m_contextIndexer] = token;
+            context = m_contextIndexer;
+        }
     }
     return context;
 }
@@ -110,7 +125,22 @@ void XboxLiveUserImpl::RemoveSignOutCompletedHandler(
     _In_ function_context context
     )
 {
-    EventRegistrationToken token;
-    token.Value = context;
-    Windows::Xbox::System::User::SignOutCompleted -= token;
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto iter = m_eventRegistrationTokens.find(context);
+    if (iter != m_eventRegistrationTokens.end())
+    {
+        Windows::Xbox::System::User::SignOutCompleted -= iter->second;
+    }
+}
+
+void XboxLiveUserImpl::Refresh()
+{
+    if (m_xboxSystemUser != nullptr)
+    {
+        m_cUser->xboxUserId = m_xboxSystemUser->XboxUserId->Data();
+        m_cUser->gamertag = m_xboxSystemUser->DisplayInfo->Gamertag->Data();
+        //m_cUser->ageGroup = m_xboxSystemUser->DisplayInfo->AgeGroup TODO convert this
+        //m_cUser->privileges = m_xboxSystemUser->DisplayInfo->Privileges TODO
+        m_cUser->isSignedIn = m_xboxSystemUser->IsSignedIn;
+    }
 }

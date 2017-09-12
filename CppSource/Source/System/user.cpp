@@ -296,25 +296,7 @@ AddSignOutCompletedHandler(
     )
 {
     VerifyGlobalXsapiInit();
-
-#if XDK_API
     return XboxLiveUserImpl::AddSignOutCompletedHandler(signOutHandler);
-#else
-    // TODO move this into impl
-    return xbox_live_user::add_sign_out_completed_handler(
-        [signOutHandler](const xbox::services::system::sign_out_completed_event_args& args)
-        {
-            auto singleton = get_xsapi_singleton();
-            std::lock_guard<std::mutex> lock(singleton->m_usersLock);
-            
-            auto iter = singleton->m_signedInUsers.find(args.user()->xbox_user_id());
-            if (iter != singleton->m_signedInUsers.end())
-            {
-                iter->second->pImpl->Refresh();
-                signOutHandler(iter->second);
-            }
-        });
-#endif
 }
 
 XSAPI_DLLEXPORT void XBL_CALLING_CONV
@@ -323,9 +305,5 @@ RemoveSignOutCompletedHandler(
     )
 {
     VerifyGlobalXsapiInit();
-#if XDK_API
     XboxLiveUserImpl::RemoveSignOutCompletedHandler(context);
-#else
-    xbox_live_user::remove_sign_out_completed_handler(context);
-#endif
 }
