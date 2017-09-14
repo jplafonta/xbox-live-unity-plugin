@@ -13,22 +13,13 @@ using namespace xbox::services::system;
 using namespace xbox::httpclient;
 
 #if XDK_API
-XSAPI_DLLEXPORT XboxLiveUser** XBL_CALLING_CONV
-XboxLiveUserCreateForXboxSystemUsers(
-    _Out_ size_t* pUserCount
+XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
+XboxLiveUserCreate(
+    _In_ void* xboxSystemUser
     )
 {
-    if (pUserCount == nullptr)
-    {
-        return nullptr;
-    }
-    
-    VerifyGlobalXsapiInit();
-
-    auto vector = XboxLiveUserImpl::CreateUsersForXboxSystemUsers();
-    *pUserCount = vector.size();    
-
-    return vector.data();
+    // TODO
+    return (XboxLiveUser*)47;
 }
 
 #else

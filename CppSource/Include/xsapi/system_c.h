@@ -85,9 +85,9 @@ typedef struct TokenAndSignatureResult
 
 #if XDK_API
 
-XSAPI_DLLEXPORT XboxLiveUser** XBL_CALLING_CONV
-XboxLiveUserCreateForXboxSystemUsers(
-    _Out_ size_t* pUserCount
+XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
+XboxLiveUserCreate(
+    _In_ void* xboxSystemUser
     );
 
 #else 

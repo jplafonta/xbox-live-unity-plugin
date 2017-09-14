@@ -24,21 +24,6 @@ XboxLiveUserImpl::XboxLiveUserImpl(
     Refresh();
 }
 
-std::vector<XboxLiveUser*>& XboxLiveUserImpl::CreateUsersForXboxSystemUsers()
-{
-    // TODO Fix memory management of these user objects
-    std::lock_guard<std::mutex> lock(XboxLiveUserImpl::m_mutex);
-    m_users.clear();
-
-    for (auto iter = Windows::Xbox::System::User::Users->First(); iter->HasCurrent; iter->MoveNext())
-    {
-        auto cUser = new XboxLiveUser();
-        cUser->pImpl = new XboxLiveUserImpl(iter->Current, cUser);
-        m_users.push_back(cUser);
-    }
-    return m_users;
-}
-
 function_context XboxLiveUserImpl::AddSignInCompletedHandler(
     _In_ SignInCompletedHandler signInHandler
     )

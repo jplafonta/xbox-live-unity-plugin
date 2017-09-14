@@ -6,7 +6,6 @@
 struct XboxLiveUserImpl
 {
 public:   
-    static std::vector<XboxLiveUser*>& CreateUsersForXboxSystemUsers();
         
     static function_context AddSignInCompletedHandler(_In_ SignInCompletedHandler signInHandler);
     static void RemoveSignInCompletedHandler(_In_ function_context context);

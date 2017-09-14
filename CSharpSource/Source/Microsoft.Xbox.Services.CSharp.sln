@@ -24,7 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Microsoft.Xbox.Services.140
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Microsoft.Xbox.Services.140.XDK.C", "..\..\CppSource\Build\Microsoft.Xbox.Services.140.XDK.C\Microsoft.Xbox.Services.140.XDK.C.vcxproj", "{E6590B4A-2634-4BA3-AFB3-BE38727CAF2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Xbox.Services.UnityXDK.CSharp", "Microsoft.Xbox.Services.UnityXDK.CSharp\Microsoft.Xbox.Services.UnityXDK.CSharp.csproj", "{56561D2B-2AF4-40CC-BADD-C628435C6D46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Xbox.Services.XDK.CSharp", "Microsoft.Xbox.Services.UnityXDK.CSharp\Microsoft.Xbox.Services.XDK.CSharp.csproj", "{56561D2B-2AF4-40CC-BADD-C628435C6D46}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

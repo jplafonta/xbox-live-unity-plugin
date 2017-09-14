@@ -10,7 +10,7 @@ namespace Microsoft.Xbox.Services
     {
         public static XboxLiveAppConfiguration Load(string path)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

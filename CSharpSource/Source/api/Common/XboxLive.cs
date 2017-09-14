@@ -53,6 +53,18 @@ namespace Microsoft.Xbox.Services
             {
                 throw new XboxException("Failed to load " + fileName);
             }
+#elif XDK_API
+            // TODO dont hardcode this
+            string path = @"g:\Data\Plugins\Microsoft.Xbox.Services.140.XDK.C.dll";
+            try
+            {
+                xsapiNativeDll = LoadNativeDll(path);
+                this.Invoke<XBLGlobalInitialize>();
+            }
+            catch (Win32Exception ex)
+            {
+                throw new XboxException("Caught win32 exception with error code " + ex.ErrorCode.ToString());
+            }
 #endif
         }
 
@@ -150,6 +162,17 @@ namespace Microsoft.Xbox.Services
 
         internal static class NativeMethods
         {
+#if XDK_API
+            [DllImport("kernelX", SetLastError = true, CharSet = CharSet.Unicode)]
+            internal static extern IntPtr LoadLibrary(string lpFileName);
+
+            [DllImport("kernelX", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool FreeLibrary(IntPtr hModule);
+
+            [DllImport("kernelX")]
+            public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+#else
             [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
             internal static extern IntPtr LoadLibrary(string lpFileName);
 
@@ -159,6 +182,8 @@ namespace Microsoft.Xbox.Services
 
             [DllImport("kernel32")]
             public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+#endif
+
         }
 
         public static IntPtr LoadNativeDll(string fileName)
@@ -198,6 +223,8 @@ namespace Microsoft.Xbox.Services
         public void Invoke<T>(params object[] args)
         {
             IntPtr procAddress = NativeMethods.GetProcAddress(xsapiNativeDll, typeof(T).Name);
+            // TODO
+            global::System.Console.WriteLine("Got proc address:" + procAddress.ToString());
             if (procAddress == IntPtr.Zero)
             {
                 return;
