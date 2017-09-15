@@ -15,11 +15,14 @@ using namespace xbox::httpclient;
 #if XDK_API
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreate(
-    _In_ void* xboxSystemUser
+    _In_ Windows::Xbox::System::User^ xboxSystemUser
     )
 {
-    // TODO
-    return (XboxLiveUser*)47;
+    VerifyGlobalXsapiInit();
+
+    auto cUser = new XboxLiveUser();
+    cUser->pImpl = new XboxLiveUserImpl(xboxSystemUser, cUser);
+    return cUser;
 }
 
 #else

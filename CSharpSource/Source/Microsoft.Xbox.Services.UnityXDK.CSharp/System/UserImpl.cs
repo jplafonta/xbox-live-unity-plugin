@@ -9,22 +9,49 @@ namespace Microsoft.Xbox.Services.System
 
     internal class UserImpl : IUserImpl
     {
-        public bool IsSignedIn { get; set; }
-        public XboxLiveUser User { get; set; }
+        public bool IsSignedIn
+        {
+            get { return m_xboxSystemUser.IsSignedIn; }
+        }
+        public string XboxUserId
+        {
+            get { return m_xboxSystemUser.XboxUserId; }
+        }
+        public string Gamertag
+        {
+            get { return m_xboxSystemUser.DisplayInfo.Gamertag; }
+        }
+        public string AgeGroup
+        {
+            get { return m_xboxSystemUser.DisplayInfo.AgeGroup.ToString(); }
+        }
+        public string Privileges
+        {
+            get
+            {
+                // TODO translate Windows.Xbox.System.User.DisplayInfo.Privileges to a string
+                throw new NotImplementedException();
+            }
+        }
+        public AuthConfig AuthConfig
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        public string XboxUserId { get; set; }
-        public string Gamertag { get; set; }
-        public string AgeGroup { get; set; }
-        public string Privileges { get; set; }
-        public string WebAccountId { get; set; }
-        public AuthConfig AuthConfig { get; set; }
-
-        public IntPtr m_xboxLiveUser_c;
+        private IntPtr m_xboxLiveUser_c;
         private Windows.Xbox.System.User m_xboxSystemUser;
 
         public UserImpl(Windows.Xbox.System.User xboxSystemUser)
         {
-            m_xboxLiveUser_c = XboxLive.Instance.Invoke<IntPtr, XboxLiveUserCreate>(null);
+            if (xboxSystemUser == null)
+            {
+                throw new ArgumentException("XboxSystemUser cannot be null!");
+            }
+            m_xboxSystemUser = xboxSystemUser;
+            m_xboxLiveUser_c = XboxLiveUserCreate(Marshal.GetIUnknownForObject(xboxSystemUser));
         }
 
         public Task<SignInResult> SignInImpl(bool showUI, bool forceRefresh)
@@ -40,14 +67,14 @@ namespace Microsoft.Xbox.Services.System
 
                 return new TokenAndSignatureResult
                 {
-                    // TODO populate other fields
                     Token = getTokenAndSignatureResult.Token,
                     Signature = getTokenAndSignatureResult.Signature
                 };
             });
         }
 
-        private delegate IntPtr XboxLiveUserCreate(IntPtr xboxSystemUser);
+        [DllImport(XboxLive.FlatCDllName)]
+        public static extern IntPtr XboxLiveUserCreate(IntPtr xboxSystemUser);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct XboxLiveUser_c

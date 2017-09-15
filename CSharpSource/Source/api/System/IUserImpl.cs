@@ -12,7 +12,9 @@ namespace Microsoft.Xbox.Services.System
         string Gamertag { get; }
         string AgeGroup { get; }
         string Privileges { get; }
+#if !XDK_API
         string WebAccountId { get; }
+#endif
         AuthConfig AuthConfig { get; }
 #if WINDOWS_UWP
         Windows.System.User CreationContext { get; }

@@ -49,6 +49,7 @@ namespace Microsoft.Xbox.Services
             }
         }
 
+#if !XDK_API
         public string WebAccountId
         {
             get
@@ -56,6 +57,7 @@ namespace Microsoft.Xbox.Services
                 return this.userImpl.WebAccountId;
             }
         }
+#endif
 
         public bool IsSignedIn
         {

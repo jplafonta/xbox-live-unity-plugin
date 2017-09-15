@@ -6,6 +6,10 @@
 struct XboxLiveUserImpl
 {
 public:   
+    XboxLiveUserImpl(
+        _In_ Windows::Xbox::System::User^ xboxSystemUser,
+        _In_ XboxLiveUser *cUser
+        );
         
     static function_context AddSignInCompletedHandler(_In_ SignInCompletedHandler signInHandler);
     static void RemoveSignInCompletedHandler(_In_ function_context context);
@@ -14,11 +18,6 @@ public:
     static void RemoveSignOutCompletedHandler(_In_ function_context context);
 
 private:
-    XboxLiveUserImpl(
-        _In_ Windows::Xbox::System::User^ xboxSystemUser,
-        _In_ XboxLiveUser *cUser
-        );
-
     void Refresh();
 
     XboxLiveUser* m_cUser;

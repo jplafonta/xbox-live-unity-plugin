@@ -87,7 +87,7 @@ typedef struct TokenAndSignatureResult
 
 XSAPI_DLLEXPORT XboxLiveUser* XBL_CALLING_CONV
 XboxLiveUserCreate(
-    _In_ void* xboxSystemUser
+    _In_ Windows::Xbox::System::User^ xboxSystemUser
     );
 
 #else 

@@ -7,7 +7,9 @@ namespace Microsoft.Xbox.Services
 
     public interface IXboxLiveUser
     {
+#if !XDK_API
         string WebAccountId { get; }
+#endif
 
         bool IsSignedIn { get; }
 
