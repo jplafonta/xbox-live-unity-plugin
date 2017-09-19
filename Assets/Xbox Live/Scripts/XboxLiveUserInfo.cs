@@ -5,7 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+using Plugin.Microsoft.Xbox.Services;
+#else
 using Microsoft.Xbox.Services;
+#endif
 
 using UnityEngine;
 
@@ -58,20 +62,13 @@ public class XboxLiveUserInfo : MonoBehaviour
 
     public void Initialize()
     {
-#if ENABLE_WINMD_SUPPORT
-#if UNITY_XBOXONE
-        // TODO
-#else
-        this.InitializeWithWindowsSystemUser();
-#endif // UNITY_XBOXONE
-#else
-        this.User = new XboxLiveUser();
-#endif // ENABLE_WINMD_SUPPORT
-    }
-
-    private void InitializeWithWindowsSystemUser()
-    {
-#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+        // Require there be a user for now
+        if (this.WindowsXboxSystemUser != null)
+        {
+            this.User = new XboxLiveUser(this.WindowsXboxSystemUser);
+        }
+#elif ENABLE_WINMD_SUPPORT
         if (this.WindowsSystemUser != null)
         {
             this.User = new XboxLiveUser(this.WindowsSystemUser);
@@ -80,6 +77,8 @@ public class XboxLiveUserInfo : MonoBehaviour
         {
             this.User = new XboxLiveUser();
         }
+#else
+        this.User = new XboxLiveUser();
 #endif
     }
 }

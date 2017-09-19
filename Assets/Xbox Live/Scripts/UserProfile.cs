@@ -7,12 +7,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+
 #if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
 using Windows.Xbox.System;
-#endif
-
+using Plugin.Microsoft.Xbox.Services;
+using Plugin.Microsoft.Xbox.Services.Social.Manager;
+#else
 using Microsoft.Xbox.Services;
 using Microsoft.Xbox.Services.Social.Manager;
+#endif
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,9 +26,7 @@ public class UserProfile : MonoBehaviour
 
     public string InputControllerButton;
 
-#if !UNITY_XBOXONE
     private bool SignInCalledOnce;
-#endif
 
     [HideInInspector]
     public GameObject signInPanel;
@@ -67,15 +68,24 @@ public class UserProfile : MonoBehaviour
     public void Start()
     {
 #if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+
         // There should be no sign in panel in the prefab for Xbox One since sign in is
         // handled by the system.
-        this.signInPanel.SetActive(false);
-        this.signInPanel.GetComponentInChildren<Button>().interactable = false;
+        //this.signInPanel.SetActive(false);
+        //this.signInPanel.GetComponentInChildren<Button>().interactable = false;
 
+        // TODO does this event handler get called correctly
         Windows.Xbox.System.User.UserAdded += (object sender, Windows.Xbox.System.UserAddedEventArgs args) =>
         {
-            // TODO
-            throw new NotImplementedException();
+            // TODO should we consider this user even if we already have one
+            if (this.XboxLiveUser.WindowsXboxSystemUser == null)
+            {
+                if (!args.User.IsGuest && args.User.IsSignedIn)
+                {
+                    this.XboxLiveUser.WindowsXboxSystemUser = args.User;
+                    //this.StartCoroutine(this.InitializeXboxLiveUserCoroutine());
+                }
+            }
         };
 #else
         // Disable the sign-in button if there's no configuration available.
@@ -117,19 +127,53 @@ public class UserProfile : MonoBehaviour
         this.Refresh();
     }
 
-    //private void XboxLiveUserOnSignOutCompleted(object sender, SignOutCompletedEventArgs signOutCompletedEventArgs)
-    //{
-    //    this.Refresh();
-    //}
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+    private void XboxLiveUserOnSignOutCompleted(object sender, Windows.Xbox.System.SignOutCompletedEventArgs signOutCompletedEventArgs)
+    {
+        this.Refresh();
+    }
+#else
+    private void XboxLiveUserOnSignOutCompleted(object sender, SignOutCompletedEventArgs signOutCompletedEventArgs)
+    {
+        this.Refresh();
+    }
+#endif
+
 
     public void InitializeXboxLiveUser()
     {
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+        // Look at currently active users and just use the first one if there is one
+        var xboxSystemUsers = Windows.Xbox.System.User.Users;
+
+        foreach (var xboxSystemUser in xboxSystemUsers)
+        {
+            if (!xboxSystemUser.IsGuest && xboxSystemUser.IsSignedIn)
+            {
+                this.XboxLiveUser.WindowsXboxSystemUser = xboxSystemUser;
+                //this.StartCoroutine(this.InitializeXboxLiveUserCoroutine());
+            }
+        }
+#else
         this.StartCoroutine(this.InitializeXboxLiveUserCoroutine());
+#endif
     }
 
     public void Update()
     {
-#if !UNITY_XBOXONE
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+        // TODO finish
+        if (this.XboxLiveUser != null && this.XboxLiveUser.User != null && this.XboxLiveUser.User.IsSignedIn && !this.SignInCalledOnce)
+        {
+            this.SignInCalledOnce = true;
+            this.StartCoroutine(this.LoadProfileInfo());
+        }
+
+        if (this.XboxLiveUser != null && this.XboxLiveUser.WindowsXboxSystemUser != null && Input.GetKeyDown(this.InputControllerButton))
+        {
+            this.StartCoroutine(this.InitializeXboxLiveUserCoroutine());
+        }
+#else
         if (XboxLiveUserManager.Instance.SingleUserModeEnabled && XboxLiveUserManager.Instance.UserForSingleUserMode != null
             && XboxLiveUserManager.Instance.UserForSingleUserMode.User != null
             && !XboxLiveUserManager.Instance.UserForSingleUserMode.User.IsSignedIn && !this.SignInCalledOnce)
@@ -151,6 +195,7 @@ public class UserProfile : MonoBehaviour
 #endif
     }
 
+
     public IEnumerator InitializeXboxLiveUserCoroutine()
     {
         yield return null;
@@ -160,16 +205,17 @@ public class UserProfile : MonoBehaviour
         this.signInPanel.GetComponentInChildren<Button>().interactable = false;
 #endif
 
-#if ENABLE_WINMD_SUPPORT
-#if UNITY_XBOXONE
-        // TODO sort out SUA/MUA. For now just grabbing the first user
-        var xboxSystemUsers = Windows.Xbox.System.User.Users;
-        if (xboxSystemUsers.Count > 0)
+#if UNITY_XBOXONE && ENABLE_WINMD_SUPPORT
+        // TODO is this complete
+        if (this.XboxLiveUser == null)
         {
-            this.XboxLiveUser.WindowsXboxSystemUser = xboxSystemUsers[0];
-
+            this.XboxLiveUser = XboxLiveUserManager.Instance.UserForSingleUserMode;
         }
-#else
+        if (this.XboxLiveUser.User == null)
+        {
+            this.XboxLiveUser.Initialize();
+        }
+#elif ENABLE_WINMD_SUPPORT
         if (!XboxLiveUserManager.Instance.SingleUserModeEnabled && this.XboxLiveUser != null && this.XboxLiveUser.WindowsSystemUser == null)
         {
             var autoPicker = new Windows.System.UserPicker { AllowGuestAccounts = this.AllowGuestAccounts };
@@ -201,7 +247,6 @@ public class UserProfile : MonoBehaviour
                 this.XboxLiveUser.Initialize();
             }
         }
-#endif // UNITY_XBOXONE
 #else
         if (XboxLiveUserManager.Instance.SingleUserModeEnabled && this.XboxLiveUser == null)
         {
@@ -212,7 +257,7 @@ public class UserProfile : MonoBehaviour
 #endif
     }
 
-#if !UNITY_XBOXONE
+#if !(UNITY_XBOXONE && ENABLE_WINMD_SUPPORT)
     public IEnumerator SignInAsync()
     {
         SignInStatus signInStatus;
@@ -231,24 +276,21 @@ public class UserProfile : MonoBehaviour
         // Throw any exceptions if needed.
         if (signInStatus == SignInStatus.Success)
         {
-            XboxLive.Instance.StatsManager.AddLocalUser(this.XboxLiveUser.User);
-            XboxLive.Instance.PresenceWriter.AddUser(this.XboxLiveUser.User);
-            var addLocalUserTask =
-                XboxLive.Instance.SocialManager.AddLocalUser(
-                    this.XboxLiveUser.User,
-                    SocialManagerExtraDetailLevel.PreferredColor).AsCoroutine();
-            yield return addLocalUserTask;
-
-            if (!addLocalUserTask.Task.IsFaulted)
-            {
-                yield return this.LoadProfileInfo();
-            }
+            yield return this.LoadProfileInfo();
         }
     }
-#endif
+#endif //!UNITY_XBOXONE
 
     private IEnumerator LoadProfileInfo()
     {
+        XboxLive.Instance.StatsManager.AddLocalUser(this.XboxLiveUser.User);
+        XboxLive.Instance.PresenceWriter.AddUser(this.XboxLiveUser.User);
+        var addLocalUserTask =
+            XboxLive.Instance.SocialManager.AddLocalUser(
+                this.XboxLiveUser.User,
+                SocialManagerExtraDetailLevel.PreferredColor).AsCoroutine();
+        yield return addLocalUserTask;
+
         var userId = ulong.Parse(this.XboxLiveUser.User.XboxUserId);
         var group = XboxLive.Instance.SocialManager.CreateSocialUserGroupFromList(this.XboxLiveUser.User, new List<ulong> { userId });
         var socialUser = group.GetUser(userId);
@@ -283,7 +325,6 @@ public class UserProfile : MonoBehaviour
                 Debug.Log("There was an error while loading Profile Info. Exception: " + ex.Message);
             }
         }
-
 
         this.Refresh();
     }

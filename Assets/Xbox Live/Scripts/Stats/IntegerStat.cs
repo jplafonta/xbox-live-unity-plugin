@@ -3,8 +3,13 @@
 // 
 using System;
 
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+using Plugin.Microsoft.Xbox.Services;
+using Plugin.Microsoft.Xbox.Services.Statistics.Manager;
+#else
 using Microsoft.Xbox.Services;
 using Microsoft.Xbox.Services.Statistics.Manager;
+#endif
 
 /// <summary>
 /// The actual integer value of the for the stat.

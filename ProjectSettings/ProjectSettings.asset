@@ -595,8 +595,8 @@ PlayerSettings:
   XboxOneUpdateKey: 
   XboxOneSandboxId: 
   XboxOneContentId: 
-  XboxOneTitleId: 
-  XboxOneSCId: 
+  XboxOneTitleId: 7E16C30E
+  XboxOneSCId: 00000000-0000-0000-0000-00007e16c30e
   XboxOneGameOsOverridePath: 
   XboxOnePackagingOverridePath: 
   XboxOneAppManifestOverridePath: 

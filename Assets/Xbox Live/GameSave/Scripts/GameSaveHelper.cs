@@ -13,6 +13,10 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
     using global::System.Collections.Generic;
     using global::System.Text;
 
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+    using Plugin.Microsoft.Xbox.Services;
+#endif
+
     using UnityEngine;
 
 #if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE

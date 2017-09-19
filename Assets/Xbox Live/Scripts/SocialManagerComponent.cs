@@ -3,8 +3,13 @@
 // 
 using System;
 
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+using Plugin.Microsoft.Xbox.Services;
+using Plugin.Microsoft.Xbox.Services.Social.Manager;
+#else
 using Microsoft.Xbox.Services;
 using Microsoft.Xbox.Services.Social.Manager;
+#endif
 
 using UnityEngine;
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xbox-live-unity-plugin", "xbox-live-unity-plugin.csproj", "{3A83AF3C-C79C-1685-29C2-9E1C49703ED8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xbox-live-unity-plugin.Player", "xbox-live-unity-plugin.Player.csproj", "{3B733D15-303B-4698-BD7E-EF9BD967D751}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xbox-live-unity-plugin.Player", "xbox-live-unity-plugin.Player.csproj", "{82857B12-48E8-429E-B29E-FF9050F3E542}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xbox-live-unity-plugin.Editor", "xbox-live-unity-plugin.Editor.csproj", "{673474E8-EA24-AE52-1DB6-78426132B1F1}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		{3A83AF3C-C79C-1685-29C2-9E1C49703ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A83AF3C-C79C-1685-29C2-9E1C49703ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A83AF3C-C79C-1685-29C2-9E1C49703ED8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B733D15-303B-4698-BD7E-EF9BD967D751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B733D15-303B-4698-BD7E-EF9BD967D751}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B733D15-303B-4698-BD7E-EF9BD967D751}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B733D15-303B-4698-BD7E-EF9BD967D751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82857B12-48E8-429E-B29E-FF9050F3E542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82857B12-48E8-429E-B29E-FF9050F3E542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82857B12-48E8-429E-B29E-FF9050F3E542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82857B12-48E8-429E-B29E-FF9050F3E542}.Release|Any CPU.Build.0 = Release|Any CPU
 		{673474E8-EA24-AE52-1DB6-78426132B1F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{673474E8-EA24-AE52-1DB6-78426132B1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{673474E8-EA24-AE52-1DB6-78426132B1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,7 +3,11 @@
 // 
 using System;
 
+#if ENABLE_WINMD_SUPPORT && UNITY_XBOXONE
+using Plugin.Microsoft.Xbox.Services;
+#else
 using Microsoft.Xbox.Services;
+#endif
 
 public class XboxLiveUserEventArgs : EventArgs
 {

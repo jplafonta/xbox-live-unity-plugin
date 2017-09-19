@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3B733D15-303B-4698-BD7E-EF9BD967D751}</ProjectGuid>
+    <ProjectGuid>{82857B12-48E8-429E-B29E-FF9050F3E542}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp.dll-player</AssemblyName>
     <FileAlignment>512</FileAlignment>

@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Microsoft.Xbox.Services;
 using Microsoft.Xbox.Services.ConnectedStorage;
 
 using UnityEngine;
