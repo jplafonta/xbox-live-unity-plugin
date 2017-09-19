@@ -8,6 +8,8 @@ namespace Assets.Xbox_Live.Editor
     using System.Xml;
     using System.Xml.Linq;
     using System.Xml.XPath;
+    using System.Linq;
+    using System.Text;
 
     using Microsoft.Xbox.Services;
 
@@ -28,6 +30,25 @@ namespace Assets.Xbox_Live.Editor
         static XboxLivePostProcessing()
         {
             ProjectFilesGenerator.ProjectFileGeneration += AddXboxServicesConfig;
+            //ProjectFilesGenerator.ProjectFileGeneration += RemoveXDKWinRTReference;
+        }
+
+        private static string RemoveXDKWinRTReference(string fileName, string fileContent)
+        {
+            if (fileName.EndsWith(".Player.csproj"))
+            {
+                XDocument projectFile = XDocument.Parse(fileContent);
+
+                projectFile.Root.Descendants()
+                  .Where((elt) => (string)elt.Attribute("Include") == "microsoft.xbox.services")
+                  .Remove();
+
+                // By default XDocument will write utf16 header
+                var writer = new Utf8StringWriter();
+                projectFile.Save(writer);
+                fileContent = writer.GetStringBuilder().ToString();
+            }
+            return fileContent;
         }
 
         /// <summary>
@@ -107,6 +128,11 @@ namespace Assets.Xbox_Live.Editor
             }
 
             project.Save(projectFile);
+        }
+
+        public class Utf8StringWriter : StringWriter
+        {
+            public override Encoding Encoding { get { return Encoding.UTF8; } }
         }
     }
 }

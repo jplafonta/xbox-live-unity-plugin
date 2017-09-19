@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A83AF3C-C79C-1685-29C2-9E1C49703ED8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp.dll</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>XboxOne:33</UnityBuildTarget>
+    <UnityVersion>5.6.3f1</UnityVersion>
+    <RootNamespace>
+    </RootNamespace>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_3;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_XBOXONE;UNITY_XBOXONE_API;GFX_SUPPORTS_PLATFORM;ENABLE_EVENT_QUEUE;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_SUBSTANCE;ENABLE_UNITYWEBREQUEST;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_IL2CPP;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_XBOXONE_DEVELOPMENT_BUILD</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_3;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_XBOXONE;UNITY_XBOXONE_API;GFX_SUPPORTS_PLATFORM;ENABLE_EVENT_QUEUE;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_SUBSTANCE;ENABLE_UNITYWEBREQUEST;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_IL2CPP;NET_4_6;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_XBOXONE_DEVELOPMENT_BUILD</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\System.XML.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Mono\lib\mono\4.5\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/XboxOnePlayer/Tools/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xbox.Services.UnityEditor.CSharp">
+      <HintPath>Assets/Xbox Live/Libs/Unity/Microsoft.Xbox.Services.UnityEditor.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets/Xbox Live/Libs/Unity/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets/Xbox Live/Libs/Unity/Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets/Xbox Live/Libs/Unity/Unity.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Xbox Live\GameSave\Scripts\GameSaveHelper.cs" />
+    <Compile Include="Assets\Xbox Live\GameSave\Scripts\GameSaveStatus.cs" />
+    <Compile Include="Assets\Xbox Live\GameSave\Scripts\GameSaveUI.cs" />
+    <Compile Include="Assets\Xbox Live\GameSave\Scripts\StorageContainerInfo.cs" />
+    <Compile Include="Assets\Xbox Live\GameSave\Scripts\StorageContainerQueryResult.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Leaderboard.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\LeaderboardEntry.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\LeaderboardTypes.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\ObjectPool.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Social.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\SocialManagerComponent.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\DoubleStat.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\IntegerStat.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\StatBase.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\StatEventArgs.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\StatPanel.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\StatsManagerComponent.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\StringStat.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\Stats\XboxLiveUserEventArgs.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\UnityComponentExtensions.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\UnityTaskExtensions.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\UserProfile.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\XboxLiveServicesSettings.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\XboxLiveUserInfo.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\XboxLiveUserManager.cs" />
+    <Compile Include="Assets\Xbox Live\Scripts\XboxSocialUserEntry.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Xbox Live\GameSave\README.txt" />
+    <None Include="Assets\Xbox Live\Readme.txt" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\AssociationWizard.exe.config" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Caliburn.Micro.Platform.Core.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Caliburn.Micro.Platform.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Caliburn.Micro.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Microsoft.IdentityModel.Clients.ActiveDirectory.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\Newtonsoft.Json.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\System.Composition.AttributedModel.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\System.Composition.Convention.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\System.Composition.Hosting.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\System.Composition.Runtime.xml" />
+    <None Include="Assets\Xbox Live\Tools\AssociationWizard\System.Composition.TypedParts.xml" />
+    <Content Include="XboxServices.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

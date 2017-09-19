@@ -10,7 +10,11 @@ using Microsoft.Xbox.Services;
 using UnityEngine;
 
 #if ENABLE_WINMD_SUPPORT
+#if UNITY_XBOXONE
+using Windows.Xbox.System;
+#else
 using Windows.System;
+#endif
 #endif
 
 public class XboxLiveUserInfo : MonoBehaviour
@@ -18,7 +22,11 @@ public class XboxLiveUserInfo : MonoBehaviour
     public XboxLiveUser User { get; private set; }
 
 #if ENABLE_WINMD_SUPPORT
+#if UNITY_XBOXONE
+    public Windows.Xbox.System.User WindowsXboxSystemUser { get; set; }
+#else
     public Windows.System.User WindowsSystemUser { get; set; }
+#endif
 #endif
 
     public void Awake()
@@ -51,15 +59,19 @@ public class XboxLiveUserInfo : MonoBehaviour
     public void Initialize()
     {
 #if ENABLE_WINMD_SUPPORT
+#if UNITY_XBOXONE
+        // TODO
+#else
         this.InitializeWithWindowsSystemUser();
+#endif // UNITY_XBOXONE
 #else
         this.User = new XboxLiveUser();
-#endif
+#endif // ENABLE_WINMD_SUPPORT
     }
 
     private void InitializeWithWindowsSystemUser()
     {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
         if (this.WindowsSystemUser != null)
         {
             this.User = new XboxLiveUser(this.WindowsSystemUser);

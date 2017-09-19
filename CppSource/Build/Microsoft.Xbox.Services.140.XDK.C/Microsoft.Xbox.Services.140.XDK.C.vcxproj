@@ -210,4 +210,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\CSharpSource\external\packages\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.2017.08.20170817.001\build\native\Microsoft.Xbox.Live.SDK.Cpp.XboxOneXDK.targets'))" />
   </Target>
+  <Target Name="CopyLibsForCSharp" AfterTargets="Build">
+    <Message Importance="high" Text="Copying binaries to CSharp Libs folder $(ProjectDir)..\..\..\CSharpSource\Plugins\$(Platform)" />
+    <MakeDir Directories="$(ProjectDir)..\..\..\CSharpSource\Plugins\$(Platform)" />
+    <Exec Command="xcopy /y /d $(OutDir)*.dll $(ProjectDir)..\..\..\CSharpSource\Plugins\$(Platform)" />
+    <Exec Command="xcopy /y /d $(OutDir)*.pdb $(ProjectDir)..\..\..\CSharpSource\Plugins\$(Platform)" Condition="'$(Configuration)' == 'Debug'" />
+  </Target>
 </Project>

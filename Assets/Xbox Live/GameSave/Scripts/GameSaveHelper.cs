@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
 using Windows.Gaming.XboxLive.Storage;
 using Windows.Storage.Streams;
 #endif
@@ -15,17 +15,17 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
 
     using UnityEngine;
 
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
     using global::System.Runtime.InteropServices.WindowsRuntime;
 #endif
 
     public class GameSaveHelper
     {
 
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
         private GameSaveProvider gameSaveProvider;
 #endif
-        
+
         private bool isInitializedInterntal;
 
         public IEnumerator Initialize(XboxLiveUser xboxLiveUser, Action<GameSaveStatus> resultCallBack)
@@ -34,7 +34,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
 
             if (resultCallBack != null)
             {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 var configId = XboxLive.Instance.AppConfig.PrimaryServiceConfigId;
                 var initTask = GameSaveProvider.GetForUserAsync(xboxLiveUser.WindowsSystemUser, configId).AsTask();
                 if (initTask.Result.Status == GameSaveErrorStatus.Ok)
@@ -62,7 +62,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             yield return null;
             if (resultCallBack != null)
             {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     var container = this.gameSaveProvider.CreateContainer(containerName);
@@ -101,7 +101,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             if (resultCallBack != null)
             {
                 var returnDictionary = new Dictionary<string, byte[]>();
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     var loadBuffers = this.LoadDataHelper(containerName, blobsToRead);
@@ -138,7 +138,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             if (resultCallBack != null)
             {
                 var returnDictionary = new Dictionary<string, string>();
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     var loadBuffers = this.LoadDataHelper(containerName, blobsToRead);
@@ -173,7 +173,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             yield return null;
             if (resultCallBack != null)
             {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     this.gameSaveProvider.DeleteContainerAsync(containerName).AsTask().ContinueWith(
@@ -203,7 +203,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             yield return null;
 
             if(resultCallBack != null) {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     var query = this.gameSaveProvider.CreateContainerInfoQuery(prefix);
@@ -277,7 +277,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             yield return null;
             if (resultCallBack != null)
             {
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
                 if (this.gameSaveProvider != null)
                 {
                     var quotaTask = this.gameSaveProvider.GetRemainingBytesInQuotaAsync().AsTask();
@@ -301,7 +301,7 @@ namespace Microsoft.Xbox.Services.ConnectedStorage
             return this.isInitializedInterntal;
         }
 
-#if ENABLE_WINMD_SUPPORT
+#if ENABLE_WINMD_SUPPORT && !UNITY_XBOXONE
         private Dictionary<string, IBuffer> LoadDataHelper(string containerName, string[] blobsToRead)
         {
             var container = this.gameSaveProvider.CreateContainer(containerName);

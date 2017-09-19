@@ -16,6 +16,9 @@
     <BuildRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
   </PropertyGroup>
   <Import Project="$(BuildRoot)\build\props\buildoutput.props" />
+  <PropertyGroup>
+    <PluginLayoutPath>$(BasePluginLayoutPath)XDK\</PluginLayoutPath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -61,11 +64,26 @@
   </ItemGroup>
   <Import Project="..\api\Microsoft.Xbox.Services.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Target Name="LayoutPlugin" AfterTargets="Build">
+    <Message Importance="high" Text="OutputPath: $(OutDir)" />
+    <Message Importance="high" Text="Copying binaries to plugin layout path $(PluginLayoutPath)" />
+    <MakeDir Directories="$(PluginLayoutPath)" />
+    <Exec Command="xcopy /y /d $(OutDir)*.dll $(PluginLayoutPath)" />
+    <Exec Command="xcopy /y /d $(OutDir)*.pdb $(PluginLayoutPath)" Condition="'$(Configuration)' == 'Debug'" />
+    <Exec Command="xcopy /y /d $(ProjectDir)..\..\external\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll $(PluginLayoutPath)" />
   </Target>
-  <Target Name="AfterBuild">
+  <Target Name="CopyToUnityLibs" Condition="Exists('$(SolutionDir)..\..\Assets\Xbox Live')" AfterTargets="LayoutPlugin">
+    <Message Importance="high" Text="Copying binaries to Unity Libs folder $(SolutionDir)..\..\Assets\Xbox Live\libs" />
+    <MakeDir Directories="$(SolutionDir)..\..\Assets\Xbox Live\libs" />
+    <ItemGroup>
+      <PluginFiles Include="$(PluginLayoutPath)\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(SolutionDir)..\..\Assets\Xbox Live\libs\XDK" />
   </Target>
-  -->
+  <Target Name="CopyCDllsToAssetsPlugins" AfterTargets="CopyToUnityLibs">
+    <Message Importance="high" Text="Copying c dlls to Assets Plugins folder $(SolutionDir)..\..\Assets\Plugins\Durango" />
+    <MakeDir Directories="$(SolutionDir)..\..\Assets\Plugins\Durango" />
+    <Exec Command="xcopy /y /d $(ProjectDir)..\..\Plugins\Durango\*.dll $(SolutionDir)..\..\Assets\Plugins\Durango" />
+    <Exec Command="xcopy /y /d $(ProjectDir)..\..\Plugins\Durango\*.pdb $(SolutionDir)..\..\Assets\Plugins\Durango" Condition="'$(Configuration)' == 'Debug'" />
+  </Target>
 </Project>

@@ -123,7 +123,7 @@ PlayerSettings:
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
-  xboxOneDisableKinectGpuReservation: 0
+  xboxOneDisableKinectGpuReservation: 1
   xboxOneEnable7thCore: 0
   vrSettings:
     cardboard:
@@ -162,7 +162,7 @@ PlayerSettings:
     serializedVersion: 2
     m_Bits: 238
   iPhoneSdkVersion: 988
-  iOSTargetOSVersionString: 
+  iOSTargetOSVersionString: 7.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 
@@ -506,19 +506,21 @@ PlayerSettings:
     14: 
     21: UNITY_XBOXONE_DEVELOPMENT_BUILD
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    XboxOne: 1
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
-  apiCompatibilityLevelPerPlatform: {}
+  apiCompatibilityLevelPerPlatform:
+    XboxOne: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: XDevXOpenPublisher.CreatorsTestingUWPIntegration
+  metroPackageName: XDevXOpenPublisher.JasonSaCreators
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: XDevXOpenPublisher.CreatorsTestingUWPIntegration_StoreKey.pfx
+  metroCertificatePath: XDevXOpenPublisher.JasonSaCreators_StoreKey.pfx
   metroCertificatePassword: 
   metroCertificateSubject: ADA10742-3DE1-44A5-8545-091029D77734
   metroCertificateIssuer: ADA10742-3DE1-44A5-8545-091029D77734
-  metroCertificateNotAfter: 009e5fde19e4d301
+  metroCertificateNotAfter: 0054d343c436d401
   metroApplicationDescription: sdk.unityplugin
   wsaImages: {}
   metroTileShortName: 
@@ -604,14 +606,28 @@ PlayerSettings:
   XboxOneLanguage:
   - enus
   XboxOneCapability: []
-  XboxOneGameRating: {}
+  XboxOneGameRating:
+    CERO (Japan): 0
+    COB-AU (Australia): 0
+    CSRR (Taiwan): 0
+    DJCTQ (Brazil): 0
+    ESRB (US): 0
+    FPB (South Africa): 0
+    GRB (South Korea): 0
+    MDA (Singapore): 0
+    Microsoft: 0
+    OFLC-NZ (New Zealand): 0
+    PCBP (Russia): 0
+    PEGI (Europe): 0
+    PEGI (Portugal): 0
+    USK (Germany): 0
   XboxOneIsContentPackage: 0
   XboxOneEnableGPUVariability: 0
   XboxOneSockets: {}
   XboxOneSplashScreen: {fileID: 0}
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
-  xboxOneScriptCompiler: 0
+  xboxOneScriptCompiler: 1
   vrEditorSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <BaseOutputPath>$(BuildRoot)\binaries\</BaseOutputPath>
     <BasePluginLayoutPath>$(BaseOutputPath)Layout\$(Configuration)\</BasePluginLayoutPath>
-    <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
+    <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\$(AssemblyName)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <IntermediateOutputPath>$(BuildRoot)\obj\$(Platform)\$(Configuration)</IntermediateOutputPath>
   </PropertyGroup>
