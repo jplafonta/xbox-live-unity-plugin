@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Microsoft.Xbox.Services.System
+namespace Plugin.Microsoft.Xbox.Services.System
 {
     using global::System;
     using global::System.Runtime.InteropServices;

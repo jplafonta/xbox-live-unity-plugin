@@ -3,7 +3,11 @@
 // 
 using Newtonsoft.Json;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services
+#else
 namespace Microsoft.Xbox.Services
+#endif
 {
     internal static class JsonSerialization
     {

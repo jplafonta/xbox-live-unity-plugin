@@ -1,7 +1,10 @@
-﻿namespace Microsoft.Xbox.Services.Shared.TitleStorage
+﻿#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
+namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
     using global::System.Collections.Generic;
-    using Microsoft.Xbox.Services.TitleStorage;
 
     /// <summary>
     /// Information used to retrieve metadata about Title Storage Blobs

@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // 
-using System;
-using System.Collections.Generic;
-using Microsoft.Xbox.Services.System;
-using Microsoft.Xbox.Services.Leaderboard;
-using global::System.Threading.Tasks;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Statistics.Manager
+#else
 namespace Microsoft.Xbox.Services.Statistics.Manager
+#endif
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using Microsoft.Xbox.Services.Leaderboard;
+
     public interface IStatsManager
     {
         /// <summary> 

@@ -7,7 +7,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Leaderboard
+#else
 namespace Microsoft.Xbox.Services.Leaderboard
+#endif
 {
     public class LeaderboardRow
     {

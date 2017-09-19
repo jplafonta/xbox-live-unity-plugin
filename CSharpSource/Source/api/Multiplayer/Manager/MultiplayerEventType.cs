@@ -6,7 +6,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Multiplayer.Manager
+#else
 namespace Microsoft.Xbox.Services.Multiplayer.Manager
+#endif
 {
     public enum MultiplayerEventType : int
     {

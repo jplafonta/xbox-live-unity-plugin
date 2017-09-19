@@ -1,11 +1,14 @@
-﻿using Microsoft.Xbox.Services.Shared.Presence;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Presence
+#else
 namespace Microsoft.Xbox.Services.Presence
+#endif
 {
     public class PresenceWriter: IPresenceWriter
     {

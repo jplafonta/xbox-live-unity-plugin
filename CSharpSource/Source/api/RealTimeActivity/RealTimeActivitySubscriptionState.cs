@@ -6,7 +6,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.RealTimeActivity
+#else
 namespace Microsoft.Xbox.Services.RealTimeActivity
+#endif
 {
     public enum RealTimeActivitySubscriptionState : int
     {

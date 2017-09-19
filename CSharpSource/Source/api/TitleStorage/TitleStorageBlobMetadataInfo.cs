@@ -1,8 +1,10 @@
-﻿namespace Microsoft.Xbox.Services.Shared.TitleStorage
+﻿#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
+namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
     using global::System;
-
-    using Microsoft.Xbox.Services.TitleStorage;
 
     public class TitleStorageBlobMetadataInfo
     {

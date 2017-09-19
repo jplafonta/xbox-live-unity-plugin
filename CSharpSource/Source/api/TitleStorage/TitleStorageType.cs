@@ -2,7 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // 
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
 namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
     /// <summary> Defines values used to indicate title storage type.</summary>
     public enum TitleStorageType : int

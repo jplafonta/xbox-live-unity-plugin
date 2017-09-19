@@ -1,7 +1,9 @@
-﻿namespace Microsoft.Xbox.Services.Shared.TitleStorage
+﻿#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
+namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
-    using Microsoft.Xbox.Services.TitleStorage;
-
     /// <summary>
     /// Sets or Gets the Properties needed for Downloading Blobs.
     /// </summary>

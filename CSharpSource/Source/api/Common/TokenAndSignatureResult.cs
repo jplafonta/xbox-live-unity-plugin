@@ -6,7 +6,11 @@ using Windows.Security.Authentication.Web.Core;
 
 #endif
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services
+#else
 namespace Microsoft.Xbox.Services
+#endif
 {
     public class TokenAndSignatureResult
     {

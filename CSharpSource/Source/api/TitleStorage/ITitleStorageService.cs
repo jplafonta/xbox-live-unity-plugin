@@ -1,9 +1,11 @@
-﻿namespace Microsoft.Xbox.Services.Shared.TitleStorage
+﻿#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
+namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
-
-    using Microsoft.Xbox.Services.TitleStorage;
 
     /// <summary>
     /// Services that manage title storage.

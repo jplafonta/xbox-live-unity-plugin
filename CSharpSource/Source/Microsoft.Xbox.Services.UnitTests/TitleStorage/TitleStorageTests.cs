@@ -10,7 +10,6 @@ namespace Microsoft.Xbox.Services.UnitTests.TitleStorage
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.Xbox.Services.Shared.TitleStorage;
     using Microsoft.Xbox.Services.TitleStorage;
 
     using Newtonsoft.Json.Linq;

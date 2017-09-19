@@ -6,7 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Social.Models
+#else
 namespace Microsoft.Xbox.Services.Social.Models
+#endif
 {
     internal class ProfileSettingsRequest
     {

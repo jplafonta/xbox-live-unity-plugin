@@ -5,7 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.System
+#else
 namespace Microsoft.Xbox.Services.System
+#endif
 {
     internal class AuthConfig
     {

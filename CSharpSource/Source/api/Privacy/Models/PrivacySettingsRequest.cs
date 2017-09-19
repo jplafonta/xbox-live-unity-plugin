@@ -5,7 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Privacy.Models
+#else
 namespace Microsoft.Xbox.Services.Privacy.Models
+#endif
 {
     internal class PrivacySettingsRequest
     {

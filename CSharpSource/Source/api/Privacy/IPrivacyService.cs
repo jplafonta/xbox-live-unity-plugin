@@ -1,7 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Privacy
+#else
 namespace Microsoft.Xbox.Services.Privacy
+#endif
 {
     using global::System.Threading.Tasks;
     using global::System.Collections.Generic;

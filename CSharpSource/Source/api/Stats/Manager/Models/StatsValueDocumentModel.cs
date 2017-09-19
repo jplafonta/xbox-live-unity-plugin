@@ -6,7 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Statistics.Manager.Models
+#else
 namespace Microsoft.Xbox.Services.Statistics.Manager.Models
+#endif
 {
     class StatsValueDocumentModel
     {

@@ -1,7 +1,10 @@
-﻿using Microsoft.Xbox.Services.Presence;
-using System;
+﻿using System;
 
-namespace Microsoft.Xbox.Services.Shared.Presence
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Presence
+#else
+namespace Microsoft.Xbox.Services.Presence
+#endif
 {
     public class MediaPresenceData
     {

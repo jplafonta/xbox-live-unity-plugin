@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Social.Models
+#else
 namespace Microsoft.Xbox.Services.Social.Models
+#endif
 {
     public class ProfileSettingsResponse
     {

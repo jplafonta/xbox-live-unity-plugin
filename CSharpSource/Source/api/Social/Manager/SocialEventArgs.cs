@@ -6,7 +6,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Social.Manager
+#else
 namespace Microsoft.Xbox.Services.Social.Manager
+#endif
 {
     public class SocialEventArgs : EventArgs
     {

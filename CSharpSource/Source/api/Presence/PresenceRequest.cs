@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xbox.Services.Presence;
 
-namespace Microsoft.Xbox.Services.Shared.Presence
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Presence
+#else
+namespace Microsoft.Xbox.Services.Presence
+#endif
 {
     public class PresenceTitleRequest
     {

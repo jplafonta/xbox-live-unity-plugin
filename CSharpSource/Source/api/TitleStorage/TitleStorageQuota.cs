@@ -2,10 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // 
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.TitleStorage
+#else
 namespace Microsoft.Xbox.Services.TitleStorage
+#endif
 {
-    using Microsoft.Xbox.Services.Shared.TitleStorage;
-
     using Newtonsoft.Json;
 
     /// <summary>

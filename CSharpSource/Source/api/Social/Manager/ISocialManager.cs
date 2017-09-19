@@ -1,12 +1,16 @@
 ﻿// Copyright (c) Microsoft Corporation
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Xbox.Services.System;
 
+#if XDK_API
+namespace Plugin.Microsoft.Xbox.Services.Social.Manager
+#else
 namespace Microsoft.Xbox.Services.Social.Manager
+#endif
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+
     public interface ISocialManager
     {
         IList<XboxLiveUser> LocalUsers { get; }
