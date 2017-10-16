@@ -8,43 +8,42 @@ using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Xbox::System;
 
-function_context XboxLiveUserImpl::m_contextIndexer;
-std::map<function_context, EventRegistrationToken> XboxLiveUserImpl::m_eventRegistrationTokens;
+FUNCTION_CONTEXT XSAPI_XBOX_LIVE_USER_IMPL::m_contextIndexer;
+std::map<FUNCTION_CONTEXT, EventRegistrationToken> XSAPI_XBOX_LIVE_USER_IMPL::m_eventRegistrationTokens;
 
-std::mutex XboxLiveUserImpl::m_mutex;
-std::vector<XboxLiveUser*> XboxLiveUserImpl::m_users;
+std::mutex XSAPI_XBOX_LIVE_USER_IMPL::m_mutex;
+std::vector<XSAPI_XBOX_LIVE_USER*> XSAPI_XBOX_LIVE_USER_IMPL::m_users;
 
-XboxLiveUserImpl::XboxLiveUserImpl(
+XSAPI_XBOX_LIVE_USER_IMPL::XSAPI_XBOX_LIVE_USER_IMPL(
     _In_ Windows::Xbox::System::User^ xboxSystemUser,
-    _In_ XboxLiveUser *cUser
+    _In_ XSAPI_XBOX_LIVE_USER *pUser
     )
-    : m_xboxSystemUser(xboxSystemUser),
-    m_cUser(cUser)
+    : m_pUser(pUser)
 {
     Refresh();
 }
 
-function_context XboxLiveUserImpl::AddSignInCompletedHandler(
-    _In_ SignInCompletedHandler signInHandler
+FUNCTION_CONTEXT XSAPI_XBOX_LIVE_USER_IMPL::AddSignInCompletedHandler(
+    _In_ XSAPI_SIGN_IN_COMPLETED_HANDLER signInHandler
     )
 {
-    function_context context = -1;
+    FUNCTION_CONTEXT context = -1;
     if (signInHandler != nullptr)
     {
         auto token = Windows::Xbox::System::User::SignInCompleted += ref new EventHandler<SignInCompletedEventArgs^>(
             [signInHandler](Platform::Object^ sender, SignInCompletedEventArgs^ args)
         {
-            std::lock_guard<std::mutex> lock(XboxLiveUserImpl::m_mutex);
+            std::lock_guard<std::mutex> lock(XSAPI_XBOX_LIVE_USER_IMPL::m_mutex);
 
             auto xboxSystemUser = args->User;
-            auto iter = std::find_if(XboxLiveUserImpl::m_users.begin(), 
-                XboxLiveUserImpl::m_users.end(),
-                [xboxSystemUser](XboxLiveUser* user)
+            auto iter = std::find_if(XSAPI_XBOX_LIVE_USER_IMPL::m_users.begin(),
+                XSAPI_XBOX_LIVE_USER_IMPL::m_users.end(),
+                [xboxSystemUser](XSAPI_XBOX_LIVE_USER* user)
             {
-                return user->pImpl->m_xboxSystemUser == xboxSystemUser;
+                return user->xboxSystemUser == xboxSystemUser;
             });
 
-            if (iter != XboxLiveUserImpl::m_users.end())
+            if (iter != XSAPI_XBOX_LIVE_USER_IMPL::m_users.end())
             {
                 signInHandler(*iter);
             }
@@ -59,8 +58,8 @@ function_context XboxLiveUserImpl::AddSignInCompletedHandler(
     return context;
 }
 
-void XboxLiveUserImpl::RemoveSignInCompletedHandler(
-    _In_ function_context context
+void XSAPI_XBOX_LIVE_USER_IMPL::RemoveSignInCompletedHandler(
+    _In_ FUNCTION_CONTEXT context
 )
 {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -68,30 +67,31 @@ void XboxLiveUserImpl::RemoveSignInCompletedHandler(
     if (iter != m_eventRegistrationTokens.end())
     {
         Windows::Xbox::System::User::SignInCompleted -= iter->second;
+        m_eventRegistrationTokens.erase(iter);
     }
 }
 
-function_context XboxLiveUserImpl::AddSignOutCompletedHandler(
-    _In_ SignOutCompletedHandler signOutHandler
+function_context XSAPI_XBOX_LIVE_USER_IMPL::AddSignOutCompletedHandler(
+    _In_ XSAPI_SIGN_OUT_COMPLETED_HANDLER signOutHandler
 )
 {
-    function_context context = -1;
+    FUNCTION_CONTEXT context = -1;
     if (signOutHandler != nullptr)
     {
         auto token = Windows::Xbox::System::User::SignOutCompleted += ref new EventHandler<SignOutCompletedEventArgs^>(
             [signOutHandler](Platform::Object^ sender, SignOutCompletedEventArgs^ args)
         {
-            std::lock_guard<std::mutex> lock(XboxLiveUserImpl::m_mutex);
+            std::lock_guard<std::mutex> lock(XSAPI_XBOX_LIVE_USER_IMPL::m_mutex);
 
             auto xboxSystemUser = args->User;
-            auto iter = std::find_if(XboxLiveUserImpl::m_users.begin(),
-                XboxLiveUserImpl::m_users.end(),
-                [xboxSystemUser](XboxLiveUser* user)
+            auto iter = std::find_if(XSAPI_XBOX_LIVE_USER_IMPL::m_users.begin(),
+                XSAPI_XBOX_LIVE_USER_IMPL::m_users.end(),
+                [xboxSystemUser](XSAPI_XBOX_LIVE_USER* user)
             {
-                return user->pImpl->m_xboxSystemUser == xboxSystemUser;
+                return user->xboxSystemUser == xboxSystemUser;
             });
 
-            if (iter != XboxLiveUserImpl::m_users.end())
+            if (iter != XSAPI_XBOX_LIVE_USER_IMPL::m_users.end())
             {
                 signOutHandler(*iter);
             }
@@ -106,7 +106,7 @@ function_context XboxLiveUserImpl::AddSignOutCompletedHandler(
     return context;
 }
 
-void XboxLiveUserImpl::RemoveSignOutCompletedHandler(
+void XSAPI_XBOX_LIVE_USER_IMPL::RemoveSignOutCompletedHandler(
     _In_ function_context context
     )
 {
@@ -118,14 +118,19 @@ void XboxLiveUserImpl::RemoveSignOutCompletedHandler(
     }
 }
 
-void XboxLiveUserImpl::Refresh()
+void XSAPI_XBOX_LIVE_USER_IMPL::Refresh()
 {
-    if (m_xboxSystemUser != nullptr)
+    if (m_pUser != nullptr && m_pUser->xboxSystemUser != nullptr)
     {
-        m_cUser->xboxUserId = m_xboxSystemUser->XboxUserId->Data();
-        m_cUser->gamertag = m_xboxSystemUser->DisplayInfo->Gamertag->Data();
+        m_xboxUserId = utils::to_utf8string(m_pUser->xboxSystemUser->XboxUserId->Data());
+        m_pUser->xboxUserId = m_xboxUserId.data();
+
+        m_gamertag = utils::to_utf8string(m_pUser->xboxSystemUser->DisplayInfo->Gamertag->Data());
+        m_pUser->gamertag = m_gamertag.data();
+
         //m_cUser->ageGroup = m_xboxSystemUser->DisplayInfo->AgeGroup TODO convert this
         //m_cUser->privileges = m_xboxSystemUser->DisplayInfo->Privileges TODO
-        m_cUser->isSignedIn = m_xboxSystemUser->IsSignedIn;
+
+        m_pUser->isSignedIn = m_pUser->xboxSystemUser->IsSignedIn;
     }
 }

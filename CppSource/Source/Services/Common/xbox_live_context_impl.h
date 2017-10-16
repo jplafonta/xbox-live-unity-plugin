@@ -3,20 +3,15 @@
 
 #pragma once
 
-struct XboxLiveContextImpl
-{
-#if XDK_API | XBOX_UWP
-    XboxLiveContextImpl(
-        _In_ Windows::Xbox::System::User^ user,
-        _In_ XboxLiveContext *cContext
-        );
-#else
-    XboxLiveContextImpl(
-        _In_ XboxLiveUser *user,
-        _In_ XboxLiveContext *cContext
-        );
-#endif
+#include "xsapi/xbox_live_context_c.h"
 
-    XboxLiveContext *m_cContext;
+struct XSAPI_XBOX_LIVE_CONTEXT_IMPL
+{
+public:
+    XSAPI_XBOX_LIVE_CONTEXT_IMPL(_In_ CONST XSAPI_XBOX_LIVE_USER* pUser, _In_ XSAPI_XBOX_LIVE_CONTEXT *pContext);
+    xbox::services::xbox_live_context& cppObject();
+
+private:
+    XSAPI_XBOX_LIVE_CONTEXT *m_pContext;
     xbox::services::xbox_live_context m_cppContext;
 };

@@ -11,19 +11,19 @@ namespace Plugin.Microsoft.Xbox.Services.System
     {
         public bool IsSignedIn
         {
-            get { return m_xboxSystemUser.IsSignedIn; }
+            get { return xboxSystemUser.IsSignedIn; }
         }
         public string XboxUserId
         {
-            get { return m_xboxSystemUser.XboxUserId; }
+            get { return xboxSystemUser.XboxUserId; }
         }
         public string Gamertag
         {
-            get { return m_xboxSystemUser.DisplayInfo.Gamertag; }
+            get { return xboxSystemUser.DisplayInfo.Gamertag; }
         }
         public string AgeGroup
         {
-            get { return m_xboxSystemUser.DisplayInfo.AgeGroup.ToString(); }
+            get { return xboxSystemUser.DisplayInfo.AgeGroup.ToString(); }
         }
         public string Privileges
         {
@@ -41,8 +41,9 @@ namespace Plugin.Microsoft.Xbox.Services.System
             }
         }
 
-        private IntPtr m_xboxLiveUser_c;
-        private Windows.Xbox.System.User m_xboxSystemUser;
+        public IntPtr XboxLiveUserPtr { get; private set; }
+
+        private Windows.Xbox.System.User xboxSystemUser;
 
         public UserImpl(Windows.Xbox.System.User xboxSystemUser)
         {
@@ -50,8 +51,17 @@ namespace Plugin.Microsoft.Xbox.Services.System
             {
                 throw new ArgumentException("XboxSystemUser cannot be null!");
             }
-            m_xboxSystemUser = xboxSystemUser;
-            m_xboxLiveUser_c = XboxLiveUserCreate(Marshal.GetIUnknownForObject(xboxSystemUser));
+            this.xboxSystemUser = xboxSystemUser;
+
+            IntPtr xboxLiveUserPtr;
+            var result = XboxLiveUserCreate(Marshal.GetIUnknownForObject(this.xboxSystemUser),  out xboxLiveUserPtr);
+
+            if (result != XSAPI_RESULT.XSAPI_RESULT_OK)
+            {
+                throw new XboxException(result);
+            }
+
+            this.XboxLiveUserPtr = xboxLiveUserPtr;
         }
 
         public Task<SignInResult> SignInImpl(bool showUI, bool forceRefresh)
@@ -63,7 +73,7 @@ namespace Plugin.Microsoft.Xbox.Services.System
         {
             return Task.Run(() =>
             {
-                var getTokenAndSignatureResult = m_xboxSystemUser.GetTokenAndSignatureAsync(httpMethod, url, headers, body).GetResults();
+                var getTokenAndSignatureResult = xboxSystemUser.GetTokenAndSignatureAsync(httpMethod, url, headers, body).GetResults();
 
                 return new TokenAndSignatureResult
                 {
@@ -74,28 +84,21 @@ namespace Plugin.Microsoft.Xbox.Services.System
         }
 
         [DllImport(XboxLive.FlatCDllName)]
-        public static extern IntPtr XboxLiveUserCreate(IntPtr xboxSystemUser);
+        private static extern XSAPI_RESULT XboxLiveUserCreate(
+            IntPtr xboxSystemUser,
+            out IntPtr xboxLiveUserPtr);
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct XboxLiveUser_c
+        private struct XSAPI_XBOX_LIVE_USER
         {
-            [MarshalAsAttribute(UnmanagedType.LPWStr)]
-            public string XboxUserId;
-
-            [MarshalAsAttribute(UnmanagedType.LPWStr)]
-            public string Gamertag;
-
-            [MarshalAsAttribute(UnmanagedType.LPWStr)]
-            public string AgeGroup;
-
-            [MarshalAsAttribute(UnmanagedType.LPWStr)]
-            public string Privileges;
-
+            public IntPtr XboxUserId;
+            public IntPtr Gamertag;
+            public IntPtr AgeGroup;
+            public IntPtr Privileges;
             [MarshalAsAttribute(UnmanagedType.U1)]
-            public byte IsSignedIn;
-
-            [MarshalAsAttribute(UnmanagedType.SysInt)]
-            public IntPtr XboxSystemUser;
+            public bool IsSignedIn;
+            public IntPtr WebAccountId;
+            public IntPtr WindowsSystemUser;
         };
     }
 }

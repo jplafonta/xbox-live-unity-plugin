@@ -2,23 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #pragma once
-#include <stdint.h>
-#include "types_c.h"
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-typedef struct XboxLiveAppConfig
+typedef struct XSAPI_XBOX_LIVE_APP_CONFIG
 {
     uint32_t titleId;
-    PCSTR_T scid;
-    PCSTR_T environment;
-    PCSTR_T sandbox;
-} XboxLiveAppConfig;
+    PCSTR scid;
+    PCSTR environment;
+    PCSTR sandbox;
+} XSAPI_XBOX_LIVE_APP_CONFIG;
 
-XSAPI_DLLEXPORT const XboxLiveAppConfig* XBL_CALLING_CONV
-GetXboxLiveAppConfigSingleton();
+XSAPI_DLLEXPORT XSAPI_RESULT XBL_CALLING_CONV
+GetXboxLiveAppConfigSingleton(
+    _Out_ CONST XSAPI_XBOX_LIVE_APP_CONFIG** ppConfig
+    );
 
 #if defined(__cplusplus)
 } // end extern "C"

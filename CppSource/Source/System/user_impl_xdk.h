@@ -3,30 +3,33 @@
 
 #pragma once
 
-struct XboxLiveUserImpl
-{
-public:   
-    XboxLiveUserImpl(
-        _In_ Windows::Xbox::System::User^ xboxSystemUser,
-        _In_ XboxLiveUser *cUser
-        );
-        
-    static function_context AddSignInCompletedHandler(_In_ SignInCompletedHandler signInHandler);
-    static void RemoveSignInCompletedHandler(_In_ function_context context);
-    
-    static function_context AddSignOutCompletedHandler(_In_ SignOutCompletedHandler signOutHandler);
-    static void RemoveSignOutCompletedHandler(_In_ function_context context);
+#include "xsapi/system_c.h"
 
-private:
+struct XSAPI_XBOX_LIVE_USER_IMPL
+{
+public: 
+    XSAPI_XBOX_LIVE_USER_IMPL(_In_ Windows::Xbox::System::User^ xboxSystemUser, _In_ XSAPI_XBOX_LIVE_USER *pUser);
+
+    static FUNCTION_CONTEXT AddSignInCompletedHandler(_In_ XSAPI_SIGN_IN_COMPLETED_HANDLER signInHandler);
+    static void RemoveSignInCompletedHandler(_In_ FUNCTION_CONTEXT context);
+    
+    static FUNCTION_CONTEXT AddSignOutCompletedHandler(_In_ XSAPI_SIGN_OUT_COMPLETED_HANDLER signOutHandler);
+    static void RemoveSignOutCompletedHandler(_In_ FUNCTION_CONTEXT context);
+
     void Refresh();
 
-    XboxLiveUser* m_cUser;
-    Windows::Xbox::System::User^ m_xboxSystemUser;
+private:
+    std::string m_xboxUserId;
+    std::string m_gamertag;
+    std::string m_ageGroup;
+    std::string m_privileges;
 
-    static std::vector<XboxLiveUser*> m_users;
-    
-    static function_context m_contextIndexer;
-    static std::map<function_context, Windows::Foundation::EventRegistrationToken> m_eventRegistrationTokens;
+    XSAPI_XBOX_LIVE_USER* m_pUser;
+
+    static std::vector<XSAPI_XBOX_LIVE_USER*> m_users;
+
+    static FUNCTION_CONTEXT m_contextIndexer;
+    static std::map<FUNCTION_CONTEXT, Windows::Foundation::EventRegistrationToken> m_eventRegistrationTokens;
 
     static std::mutex m_mutex;
 };

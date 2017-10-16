@@ -64,17 +64,6 @@
   #endif
 #endif
 
-typedef int32_t function_context;
-#ifdef _WIN32
-typedef wchar_t CHAR_T;
-typedef LPCWSTR PCSTR_T;
-typedef std::wstring string_t;
-#else
-typedef char CHAR_T;
-typedef const char* PCSTR_T;
-typedef std::string string_t;
-#endif
-
 #ifndef _T
     #ifdef _WIN32
         #define _T(x) L ## x
@@ -90,3 +79,9 @@ typedef std::string string_t;
 #endif
 
 #define XBL_CALLING_CONV __cdecl
+
+#ifdef __cplusplus
+#define XSAPI_NOEXCEPT noexcept
+#else
+#define XSAPI_NOEXCEPT
+#endif

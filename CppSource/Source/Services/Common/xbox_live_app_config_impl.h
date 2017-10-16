@@ -9,12 +9,14 @@ namespace xbox {
     }
 }
 
-struct XboxLiveAppConfigImpl
+struct XBOX_LIVE_APP_CONFIG_IMPL
 {
-    XboxLiveAppConfigImpl();
+public:
+    XBOX_LIVE_APP_CONFIG_IMPL();
 
-    string_t m_scid;
-    string_t m_environment;
-    string_t m_sandbox;
+private:
+    std::string m_scid;
+    std::string m_environment;
+    std::string m_sandbox;
     std::shared_ptr<xbox::services::xbox_live_app_config> m_cppConfig;
 };
